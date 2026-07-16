@@ -224,6 +224,45 @@
   .san-final-title{ font-family: var(--san-font-accent); font-style: italic; font-weight: 700; font-size: clamp(20px,18px + 1.2vw,30px); margin: 0 0 8px; }
   .san-final-sub{ font-size: clamp(12.5px,12px + .1vw,14px); margin: 0 0 18px; opacity: .9; }
   .san-final-note{ font-size: 11px; margin: 14px 0 0; opacity: .8; }
+
+  /* ---------- 13. Animaciones ----------
+     El JS agrega la clase .san-anim a la raíz solo si el navegador
+     soporta IntersectionObserver y el usuario no pidió reducir
+     movimiento. Sin JS, la landing se ve completa e inmóvil. */
+  .san-benefit-card, .san-review-card, .san-shipping-card, .san-pain-item, .san-security-item, .san-include-card{
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .san-benefit-card:hover, .san-review-card:hover, .san-shipping-card:hover, .san-include-card:hover{
+    transform: translateY(-4px); box-shadow: 0 10px 24px rgba(61,43,34,.12);
+  }
+  @keyframes san-float{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-9px); } }
+  @keyframes san-pulse-soft{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.04); } }
+  @keyframes san-shine{ 0%{ left: -80%; } 45%{ left: 130%; } 100%{ left: 130%; } }
+  .santaro-lp.san-anim .san-reveal{
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+    transition-delay: var(--san-delay, 0ms);
+  }
+  .santaro-lp.san-anim .san-reveal.is-in{ opacity: 1; transform: none; }
+  .santaro-lp.san-anim .san-hero-media img{ animation: san-float 5.5s ease-in-out infinite; }
+  .santaro-lp.san-anim .san-badge{ animation: san-pulse-soft 2.6s ease-in-out infinite; }
+  .santaro-lp.san-anim .san-countdown-box{ animation: san-pulse-soft 2.2s ease-in-out infinite; }
+  .santaro-lp.san-anim .san-btn{ position: relative; overflow: hidden; }
+  .santaro-lp.san-anim .san-btn::after{
+    content: ''; position: absolute; top: 0; left: -80%; width: 45%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    animation: san-shine 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .santaro-lp.san-anim .san-hero-media img,
+    .santaro-lp.san-anim .san-badge,
+    .santaro-lp.san-anim .san-countdown-box,
+    .santaro-lp.san-anim .san-btn::after{ animation: none; }
+    .santaro-lp.san-anim .san-reveal{ opacity: 1; transform: none; transition: none; }
+    .san-benefit-card:hover, .san-review-card:hover, .san-shipping-card:hover, .san-include-card:hover{ transform: none; }
+  }
 </style>
 
 <!-- ===================== 1. HERO ===================== -->
@@ -242,6 +281,7 @@
     <div class="san-pills">
       <div class="san-pill">Estructura súper maciza</div>
       <div class="san-pill">Peluche beige suave y abrigado</div>
+      <div class="san-pill">Llega armado, listo para usar</div>
       <div class="san-pill">Envío gratis a todo el país</div>
     </div>
     <div class="san-trust-line">⭐⭐⭐⭐⭐ +450 gatos ya tienen su torre propia</div>
@@ -305,7 +345,7 @@
     <div>
       <div class="san-include-tag">PRODUCTO PRINCIPAL</div>
       <div class="san-include-title">Rascador multi-nivel completo</div>
-      <div class="san-include-text">Forrado en peluche beige premium, con todos los niveles, postes de rascado y accesorios para armarlo en minutos.</div>
+      <div class="san-include-text">Forrado en peluche beige premium, con todos sus niveles y postes de rascado, ya ensamblado de fábrica: lo sacás de la caja y está listo para usar.</div>
     </div>
   </div>
 </div>
@@ -370,7 +410,7 @@
         <div style="flex:1;"><div class="san-review-name">Mariana G.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
         <div class="san-review-date">hace 3 días</div>
       </div>
-      <p class="san-review-text">mi gato se subió apenas lo armé y no bajó más jaja duerme en el nivel de arriba toda la tarde</p>
+      <p class="san-review-text">mi gato se subió apenas lo saqué de la caja y no bajó más jaja duerme en el nivel de arriba toda la tarde</p>
     </div>
     <div class="san-review-card">
       <div class="san-review-head">
@@ -413,7 +453,7 @@
         <div style="flex:1;"><div class="san-review-name">Nicolás V.</div><div class="san-review-stars">⭐⭐⭐⭐</div></div>
         <div class="san-review-date">hace 1 mes</div>
       </div>
-      <p class="san-review-text">todo bien con el producto, tardó un poco mas de lo que pensaba en llegar pero nada grave, se arma facil</p>
+      <p class="san-review-text">todo bien con el producto, tardó un poco mas de lo que pensaba en llegar pero nada grave, y encima viene armado, lo apoyás y listo</p>
     </div>
     <div class="san-review-card">
       <div class="san-review-head">
@@ -470,8 +510,8 @@
   <h2 class="san-h2">Antes de comprar, resolvamos tus dudas</h2>
 
   <div class="san-faq-item">
-    <div id="faq-q1" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Es difícil de armar?</span><span id="faq-a1-arrow" class="san-faq-arrow">▼</span></div>
-    <div id="faq-a1" class="san-faq-a"><p>Para nada. Viene con todos los accesorios y las instrucciones incluidas: en pocos minutos lo tenés armado y listo para que tu gato lo estrene.</p></div>
+    <div id="faq-q1" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Hay que armarlo?</span><span id="faq-a1-arrow" class="san-faq-arrow">▼</span></div>
+    <div id="faq-a1" class="san-faq-a"><p>No. Llega ya ensamblado de fábrica: lo sacás de la caja, lo ubicás donde más te guste y tu gato lo puede estrenar al instante.</p></div>
   </div>
   <div class="san-faq-item">
     <div id="faq-q2" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Aguanta gatos grandes o más de un gato?</span><span id="faq-a2-arrow" class="san-faq-arrow">▼</span></div>
@@ -607,6 +647,46 @@
       window.scrollTo({top:0, behavior:'smooth'});
     });
   });
+
+  // ANIMACIONES: revelado al hacer scroll
+  var lpRoot = document.querySelector('.santaro-lp');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (lpRoot && 'IntersectionObserver' in window && !reduceMotion) {
+    lpRoot.classList.add('san-anim');
+    var revealSel = '.san-hero-media, .san-hero-content > *, .san-h2, .san-pain-item, ' +
+      '.san-benefit-card, .san-include-card, .san-table-wrap, .san-cta-center, ' +
+      '.san-context-media, .san-countdown, .san-review-card, .san-security-item, ' +
+      '.san-shipping-card, .san-faq-item, .san-payment-logos, .san-final-title, .san-final-sub';
+    var revealEls = Array.prototype.slice.call(lpRoot.querySelectorAll(revealSel));
+    revealEls.forEach(function(el) {
+      el.classList.add('san-reveal');
+    });
+    revealEls.forEach(function(el) {
+      // Escalona la entrada según la posición entre sus hermanos animados
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function(c) {
+        return c.classList && c.classList.contains('san-reveal');
+      });
+      el.style.setProperty('--san-delay', Math.min(sibs.indexOf(el) * 90, 540) + 'ms');
+      // Al terminar la entrada se limpia la clase para no interferir
+      // con los efectos hover de las tarjetas
+      el.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName === 'opacity') {
+          el.classList.remove('san-reveal', 'is-in');
+          el.style.removeProperty('--san-delay');
+          el.removeEventListener('transitionend', handler);
+        }
+      });
+    });
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el) { io.observe(el); });
+  }
 
 })();
 </script>
