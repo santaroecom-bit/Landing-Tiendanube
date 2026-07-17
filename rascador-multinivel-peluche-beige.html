@@ -9,11 +9,16 @@
     código original (coincide con la identidad de marca).
   - Todo el CSS está bajo la clase .santaro-lp para no pisar
     estilos del tema de la tienda.
-  - Los IDs originales (lp-*, faq-*) se mantienen intactos para
-    que el script siga funcionando igual.
+  - Los IDs originales (lp-*, faq-*) se mantienen intactos.
+  - Robusto para Tiendanube: tipografías cargadas con @import, FAQ y
+    "ver más opiniones" con <details> nativo (funcionan aunque el
+    editor bloquee JavaScript), CTAs como enlaces reales, y el
+    contador solo se muestra si el JS corre.
 -->
 <div class="santaro-lp">
+<span id="san-top"></span>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,700&display=swap');
   .santaro-lp{
     --san-brown: #5C4033;
     --san-brown-dark: #3D2B22;
@@ -64,6 +69,7 @@
     .san-btn:hover{ transform: none; }
   }
   .san-cta-center{ text-align: center; margin-top: 16px; }
+  a.san-btn{ text-decoration: none; }
 
   /* ---------- 1. Hero ---------- */
   .san-hero{ padding: clamp(20px,5vw,40px) clamp(16px,4vw,32px) clamp(24px,5vw,40px); text-align: center; }
@@ -145,8 +151,8 @@
   /* ---------- 5. Tabla comparativa ---------- */
   .san-table-wrap{ border-radius: 10px; overflow: hidden; border: 1px solid var(--san-border); }
   .san-table-row{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; font-size: clamp(11px,10.5px + .3vw,13px); text-align: center; }
-  .san-table-row > div{ padding: 8px 6px; }
-  .san-table-row > div:first-child{ text-align: left; }
+  .san-table-row div{ padding: 8px 6px; }
+  .san-table-row div:first-child{ text-align: left; }
   .san-table-head{ background: var(--san-brown); color: var(--san-cream); font-family: var(--san-font-heading); font-weight: 700; }
   .san-table-row--white{ background: #fff; }
   .san-table-row--alt{ background: #F5EDE1; }
@@ -164,12 +170,13 @@
     color: var(--san-cream); text-align: center;
   }
   .san-section--brand p{ margin: 0 0 16px; opacity: .9; font-size: clamp(12.5px,12px + .1vw,14px); }
-  .san-countdown{ display: flex; justify-content: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .san-countdown{ display: none; justify-content: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .santaro-lp.san-js .san-countdown{ display: flex; }
   .san-countdown-box{ background: rgba(255,255,255,.15); border-radius: 8px; padding: 10px 14px; min-width: 56px; }
   .san-countdown-num{ font-family: var(--san-font-heading); font-size: clamp(20px,18px + .5vw,26px); font-weight: 700; }
   .san-countdown-label{ font-size: 10px; letter-spacing: .03em; }
   .san-stock-bar{ background: rgba(255,255,255,.2); border-radius: 10px; height: 8px; overflow: hidden; max-width: 280px; margin: 0 auto 18px; }
-  .san-stock-fill{ background: var(--san-cream); height: 100%; width: 8%; transition: width .6s ease; }
+  .san-stock-fill{ background: var(--san-cream); height: 100%; width: 85%; transition: width .6s ease; }
   .san-stock-text{ font-size: 12px; margin: 0 0 6px; }
 
   /* ---------- 8. Reseñas ---------- */
@@ -182,13 +189,16 @@
   .san-review-stars{ font-size: 11px; color: var(--san-text-soft); }
   .san-review-date{ font-size: 11px; color: var(--san-muted); }
   .san-review-text{ margin: 0; font-size: clamp(12.5px,12px + .1vw,13.5px); line-height: 1.45; }
-  .san-reviews-extra{ display: none; flex-direction: column; gap: 10px; margin-top: 10px; }
-  .san-reviews-extra.is-visible{ display: flex; }
-  .san-toggle{ text-align: center; border: 1px solid var(--san-brown); color: var(--san-text-soft); font-family: var(--san-font-heading); font-weight: 700; font-size: 13px; padding: 10px; border-radius: 8px; margin-top: 12px; cursor: pointer; }
+  .san-reviews-more{ margin-top: 12px; }
+  .san-reviews-extra{ display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .san-toggle{ display: block; text-align: center; border: 1px solid var(--san-brown); color: var(--san-text-soft); font-family: var(--san-font-heading); font-weight: 700; font-size: 13px; padding: 10px; border-radius: 8px; cursor: pointer; list-style: none; }
+  .san-toggle::-webkit-details-marker{ display: none; }
+  .san-toggle-less{ display: none; }
+  .san-reviews-more[open] .san-toggle-more{ display: none; }
+  .san-reviews-more[open] .san-toggle-less{ display: inline; }
   .san-divider{ border-top: 1px solid var(--san-border-soft); margin: 18px 0; }
   @media (min-width: 700px){
-    .san-reviews-grid, .san-reviews-extra.is-visible{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .san-reviews-extra{ margin-top: 14px; }
+    .san-reviews-grid, .san-reviews-extra{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   }
 
   /* ---------- 9. Compra segura ---------- */
@@ -212,10 +222,12 @@
   /* ---------- 11. FAQ ---------- */
   .san-faq-wrap{ }
   .san-faq-item{ border-bottom: 1px solid var(--san-border); }
-  .san-faq-q{ display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; cursor: pointer; gap: 12px; }
+  .san-faq-q{ display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; cursor: pointer; gap: 12px; list-style: none; }
+  .san-faq-q::-webkit-details-marker{ display: none; }
   .san-faq-q span:first-child{ font-family: var(--san-font-heading); font-weight: 700; font-size: clamp(12.5px,12px + .2vw,14.5px); }
   .san-faq-arrow{ font-size: 12px; transition: transform .3s ease; flex-shrink: 0; }
-  .san-faq-a{ overflow: hidden; max-height: 0; transition: max-height .3s ease, padding-bottom .3s ease; }
+  .san-faq-item[open] .san-faq-arrow{ transform: rotate(180deg); }
+  .san-faq-a{ padding: 0 0 14px; }
   .san-faq-a p{ margin: 0 4px; font-size: clamp(12px,11.5px + .1vw,13.5px); line-height: 1.5; color: var(--san-text-soft); }
   @media (min-width: 900px){ .san-faq-wrap{ max-width: 760px; margin: 0 auto; } }
 
@@ -226,9 +238,10 @@
   .san-final-note{ font-size: 11px; margin: 14px 0 0; opacity: .8; }
 
   /* ---------- 13. Animaciones ----------
-     El JS agrega la clase .san-anim a la raíz solo si el navegador
-     soporta IntersectionObserver y el usuario no pidió reducir
-     movimiento. Sin JS, la landing se ve completa e inmóvil. */
+     Las animaciones ambientales (flotación, pulso, brillo) son CSS
+     puro y corren siempre. El revelado al scroll requiere JS: la
+     clase .san-anim se agrega solo si el navegador lo soporta y el
+     usuario no pidió reducir movimiento. Sin JS, todo queda visible. */
   .san-benefit-card, .san-review-card, .san-shipping-card, .san-pain-item, .san-security-item, .san-include-card{
     transition: transform .25s ease, box-shadow .25s ease;
   }
@@ -244,11 +257,11 @@
     transition-delay: var(--san-delay, 0ms);
   }
   .santaro-lp.san-anim .san-reveal.is-in{ opacity: 1; transform: none; }
-  .santaro-lp.san-anim .san-hero-media img{ animation: san-float 5.5s ease-in-out infinite; }
-  .santaro-lp.san-anim .san-badge{ animation: san-pulse-soft 2.6s ease-in-out infinite; }
-  .santaro-lp.san-anim .san-countdown-box{ animation: san-pulse-soft 2.2s ease-in-out infinite; }
-  .santaro-lp.san-anim .san-btn{ position: relative; overflow: hidden; }
-  .santaro-lp.san-anim .san-btn::after{
+  .san-hero-media img{ animation: san-float 5.5s ease-in-out infinite; }
+  .san-badge{ animation: san-pulse-soft 2.6s ease-in-out infinite; }
+  .san-countdown-box{ animation: san-pulse-soft 2.2s ease-in-out infinite; }
+  .san-btn{ position: relative; overflow: hidden; }
+  .san-btn::after{
     content: ''; position: absolute; top: 0; left: -80%; width: 45%; height: 100%;
     background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
     transform: skewX(-20deg);
@@ -256,10 +269,10 @@
     pointer-events: none;
   }
   @media (prefers-reduced-motion: reduce){
-    .santaro-lp.san-anim .san-hero-media img,
-    .santaro-lp.san-anim .san-badge,
-    .santaro-lp.san-anim .san-countdown-box,
-    .santaro-lp.san-anim .san-btn::after{ animation: none; }
+    .san-hero-media img,
+    .san-badge,
+    .san-countdown-box,
+    .san-btn::after{ animation: none; }
     .santaro-lp.san-anim .san-reveal{ opacity: 1; transform: none; transition: none; }
     .san-benefit-card:hover, .san-review-card:hover, .san-shipping-card:hover, .san-include-card:hover{ transform: none; }
   }
@@ -374,7 +387,7 @@
     </div>
   </div>
   <div class="san-cta-center">
-    <div id="lp-cta-tabla" class="san-btn san-btn--solid" role="button" tabindex="0">Quiero el mío</div>
+    <a id="lp-cta-tabla" class="san-btn san-btn--solid" href="#san-top">Quiero el mío</a>
   </div>
 </div>
 
@@ -397,7 +410,7 @@
   </div>
   <p class="san-stock-text">Quedan <span id="lp-stock-num">9</span> unidades en stock</p>
   <div class="san-stock-bar"><div id="lp-stock-fill" class="san-stock-fill"></div></div>
-  <div id="lp-cta-urgencia" class="san-btn san-btn--light" role="button" tabindex="0">Asegurar el mío ahora</div>
+  <a id="lp-cta-urgencia" class="san-btn san-btn--light" href="#san-top">Asegurar el mío ahora</a>
 </div>
 
 <!-- ===================== 8. RESEÑAS ===================== -->
@@ -438,6 +451,8 @@
     </div>
   </div>
 
+  <details class="san-reviews-more">
+  <summary id="lp-ver-mas-btn" class="san-toggle"><span class="san-toggle-more">Ver más opiniones ▼</span><span class="san-toggle-less">Ver menos ▲</span></summary>
   <div id="lp-mas-resenas" class="san-reviews-extra">
     <div class="san-review-card">
       <div class="san-review-head">
@@ -464,11 +479,11 @@
       <p class="san-review-text">ya pasaron dos meses y sigue firme como el primer dia, mis dos gatos lo usan a la vez y ni se mueve</p>
     </div>
   </div>
+  </details>
 
-  <div id="lp-ver-mas-btn" class="san-toggle" role="button" tabindex="0" aria-expanded="false">Ver más opiniones ▼</div>
   <div class="san-divider"></div>
   <div class="san-cta-center">
-    <div id="lp-cta-resenas" class="san-btn san-btn--solid" role="button" tabindex="0">Quiero uno para mi gato</div>
+    <a id="lp-cta-resenas" class="san-btn san-btn--solid" href="#san-top">Quiero uno para mi gato</a>
   </div>
 </div>
 
@@ -509,37 +524,37 @@
 <div class="san-section san-faq-wrap">
   <h2 class="san-h2">Antes de comprar, resolvamos tus dudas</h2>
 
-  <div class="san-faq-item">
-    <div id="faq-q1" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Hay que armarlo?</span><span id="faq-a1-arrow" class="san-faq-arrow">▼</span></div>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q1" class="san-faq-q"><span>¿Hay que armarlo?</span><span id="faq-a1-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a1" class="san-faq-a"><p>No. Llega ya ensamblado de fábrica: lo sacás de la caja, lo ubicás donde más te guste y tu gato lo puede estrenar al instante.</p></div>
-  </div>
-  <div class="san-faq-item">
-    <div id="faq-q2" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Aguanta gatos grandes o más de un gato?</span><span id="faq-a2-arrow" class="san-faq-arrow">▼</span></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q2" class="san-faq-q"><span>¿Aguanta gatos grandes o más de un gato?</span><span id="faq-a2-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a2" class="san-faq-a"><p>Sí. La estructura es súper maciza y estable, pensada para que trepen y salten sin que se tambalee, incluso con más de un gato usándolo a la vez.</p></div>
-  </div>
-  <div class="san-faq-item">
-    <div id="faq-q3" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Se tambalea o se vuelca con el uso?</span><span id="faq-a3-arrow" class="san-faq-arrow">▼</span></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q3" class="san-faq-q"><span>¿Se tambalea o se vuelca con el uso?</span><span id="faq-a3-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a3" class="san-faq-a"><p>No. A diferencia de los rascadores livianos, este modelo es macizo y confiable: mantiene su firmeza con el uso diario, los saltos y las corridas.</p></div>
-  </div>
-  <div class="san-faq-item">
-    <div id="faq-q4" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Cuánto tarda en llegar?</span><span id="faq-a4-arrow" class="san-faq-arrow">▼</span></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q4" class="san-faq-q"><span>¿Cuánto tarda en llegar?</span><span id="faq-a4-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a4" class="san-faq-a"><p>En zonas con Envío Flex puede llegar en el día. Para el resto del país, lo enviamos por Correo Argentino sin costo, a todo el territorio nacional.</p></div>
-  </div>
-  <div class="san-faq-item">
-    <div id="faq-q5" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Qué pasa si llega con algún defecto?</span><span id="faq-a5-arrow" class="san-faq-arrow">▼</span></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q5" class="san-faq-q"><span>¿Qué pasa si llega con algún defecto?</span><span id="faq-a5-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a5" class="san-faq-a"><p>Tenés 30 días de garantía desde que lo recibís. Si llega con algún fallo o le falta alguna pieza, lo cambiamos sin costo.</p></div>
-  </div>
-  <div class="san-faq-item" style="border-bottom:none;">
-    <div id="faq-q6" class="san-faq-q" role="button" tabindex="0" aria-expanded="false"><span>¿Cómo puedo pagar?</span><span id="faq-a6-arrow" class="san-faq-arrow">▼</span></div>
+  </details>
+  <details class="san-faq-item" style="border-bottom:none;" name="san-faq">
+    <summary id="faq-q6" class="san-faq-q"><span>¿Cómo puedo pagar?</span><span id="faq-a6-arrow" class="san-faq-arrow">▼</span></summary>
     <div id="faq-a6" class="san-faq-a"><p>Podés pagar con Mercado Pago en 3 cuotas sin interés de $53.333, o por transferencia bancaria al precio especial de $144.000.</p></div>
-  </div>
+  </details>
 </div>
 
 <!-- ===================== 12. CTA FINAL ===================== -->
 <div class="san-final">
   <h2 class="san-final-title">Hoy es el día de salvar tu sillón</h2>
   <p class="san-final-sub">Súper macizo · Peluche beige calentito · Estético para tu hogar · Envío gratis a todo el país</p>
-  <div id="lp-cta-final" class="san-btn san-btn--light" role="button" tabindex="0">Comprar ahora - $144.000 por transferencia</div>
+  <a id="lp-cta-final" class="san-btn san-btn--light" href="#san-top">Comprar ahora - $144.000 por transferencia</a>
   <p class="san-final-note">La promo termina hoy a la medianoche</p>
 </div>
 </div>
@@ -547,16 +562,9 @@
 <script>
 (function() {
 
-  function bindActivate(el, handler) {
-    if (!el) return;
-    el.addEventListener('click', handler);
-    el.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        handler(e);
-      }
-    });
-  }
+  var lpRoot = document.querySelector('.santaro-lp');
+  // Marca que el JS está corriendo (muestra el contador)
+  if (lpRoot) lpRoot.classList.add('san-js');
 
   // CONTADOR HASTA MEDIANOCHE ARGENTINA
   function getMidnightAR() {
@@ -602,62 +610,30 @@
     setTimeout(checkStock, 1000);
   }, 600);
 
-  // FAQ ACORDEÓN
-  var faqItems = [1,2,3,4,5,6];
-  faqItems.forEach(function(n) {
-    var btn = document.getElementById('faq-q' + n);
-    var ans = document.getElementById('faq-a' + n);
-    var arr = document.getElementById('faq-a' + n + '-arrow');
-    if (!btn || !ans) return;
-    bindActivate(btn, function() {
-      var isOpen = ans.style.maxHeight && ans.style.maxHeight !== '0px';
-      faqItems.forEach(function(x) {
-        var a = document.getElementById('faq-a' + x);
-        var ar = document.getElementById('faq-a' + x + '-arrow');
-        var q = document.getElementById('faq-q' + x);
-        if (a) { a.style.maxHeight = '0px'; a.style.paddingBottom = '0'; }
-        if (ar) ar.style.transform = 'rotate(0deg)';
-        if (q) q.setAttribute('aria-expanded', 'false');
-      });
-      if (!isOpen) {
-        ans.style.maxHeight = '300px';
-        ans.style.paddingBottom = '14px';
-        if (arr) arr.style.transform = 'rotate(180deg)';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-
-  // VER MÁS RESEÑAS
-  var verMasBtn = document.getElementById('lp-ver-mas-btn');
-  var masResenas = document.getElementById('lp-mas-resenas');
-  if (verMasBtn && masResenas) {
-    bindActivate(verMasBtn, function() {
-      var showing = masResenas.classList.toggle('is-visible');
-      verMasBtn.textContent = showing ? 'Ver menos ▲' : 'Ver más opiniones ▼';
-      verMasBtn.setAttribute('aria-expanded', showing ? 'true' : 'false');
-    });
-  }
-
-  // CTAs SCROLL AL TOP
+  // CTAs: los enlaces ya llevan al tope sin JS; esto solo suaviza el scroll
   var ctaIds = ['lp-cta-tabla','lp-cta-urgencia','lp-cta-resenas','lp-cta-final'];
   ctaIds.forEach(function(id) {
     var el = document.getElementById(id);
-    bindActivate(el, function() {
-      window.scrollTo({top:0, behavior:'smooth'});
+    if (!el) return;
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({top: 0, behavior: 'smooth'});
     });
   });
 
   // ANIMACIONES: revelado al hacer scroll
-  var lpRoot = document.querySelector('.santaro-lp');
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (lpRoot && 'IntersectionObserver' in window && !reduceMotion) {
     lpRoot.classList.add('san-anim');
-    var revealSel = '.san-hero-media, .san-hero-content > *, .san-h2, .san-pain-item, ' +
+    var revealSel = '.san-hero-media, .san-h2, .san-pain-item, ' +
       '.san-benefit-card, .san-include-card, .san-table-wrap, .san-cta-center, ' +
       '.san-context-media, .san-countdown, .san-review-card, .san-security-item, ' +
       '.san-shipping-card, .san-faq-item, .san-payment-logos, .san-final-title, .san-final-sub';
     var revealEls = Array.prototype.slice.call(lpRoot.querySelectorAll(revealSel));
+    var heroContent = lpRoot.querySelector('.san-hero-content');
+    if (heroContent) {
+      revealEls = revealEls.concat(Array.prototype.slice.call(heroContent.children));
+    }
     revealEls.forEach(function(el) {
       el.classList.add('san-reveal');
     });
