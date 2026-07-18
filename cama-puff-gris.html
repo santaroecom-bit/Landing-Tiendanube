@@ -1,154 +1,673 @@
 <!--
-  SÁNTARO — Landing Cama Puff Gris (versión para Tiendanube)
+  SÁNTARO — Landing Cama Puff Gris (responsive + animaciones)
+  Variante: puff redondo de 60 cm, pelo gris + base de friselina gruesa.
   ---------------------------------------------------------------
-  IMPORTANTE: pegar en el editor de la descripción en modo
-  código fuente / HTML (botón </>), NUNCA en el editor visual.
-  Todos los estilos van inline en cada elemento porque Tiendanube
-  elimina los bloques <style> y <script> al guardar. El contador es
-  un GIF animado (assets/contador-santaro.gif): subilo con el botón
-  de imagen del editor y reemplazá URL_GIF_CONTADOR con su URL. Las
-  demás imágenes con src "URL_..." se reemplazan por las fotos
-  reales del producto.
+  - Mobile-first, con breakpoints en 700px y 1024px (el hero pasa
+    a 2 columnas desde 900px para verse bien en PC).
+  - Tipografías: Poppins (títulos/CTA), Montserrat (texto),
+    Cormorant Garamond (acentos premium: precio y cierre).
+  - Paleta: marrón #5C4033 / crema #F8EFE4 (identidad de marca).
+    Todo el fondo claro usa #F8EFE4, igual al fondo de la tienda.
+  - Todo el CSS está bajo la clase .santaro-lp para no pisar
+    estilos del tema de la tienda.
+  - Los IDs originales (lp-*, faq-*) se mantienen intactos.
+  - Robusto para Tiendanube: tipografías cargadas con @import, FAQ y
+    "ver más opiniones" con <details> nativo (funcionan aunque el
+    editor bloquee JavaScript), CTAs como enlaces reales, y el
+    contador solo se muestra si el JS corre.
+  - Animaciones: revelado escalonado al hacer scroll, imagen del
+    hero flotando, pulso en badge y countdown, brillo en los CTA
+    y elevación de tarjetas al hover. Todo degrada sin JS y
+    respeta prefers-reduced-motion.
 -->
-<div style="max-width:1140px;margin:0 auto;background:#F8EFE4;color:#3D2B22;font-family:'Montserrat',Arial,Helvetica,sans-serif;">
+<div class="santaro-lp">
+<span id="san-top"></span>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,700&display=swap');
+  .santaro-lp{
+    --san-brown: #5C4033;
+    --san-brown-dark: #3D2B22;
+    --san-cream: #F8EFE4;
+    --san-cream-alt: #EFE3D3;
+    --san-border: #E3D5C4;
+    --san-border-soft: #D8C9B8;
+    --san-text: #3D2B22;
+    --san-text-soft: #5C4033;
+    --san-muted: #8A7267;
+    --san-font-body: 'Montserrat', Arial, Helvetica, sans-serif;
+    --san-font-heading: 'Poppins', 'Montserrat', Arial, sans-serif;
+    --san-font-accent: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: var(--san-font-body);
+    background: var(--san-cream);
+    color: var(--san-text);
+  }
+  .santaro-lp, .santaro-lp *{ box-sizing: border-box; }
+  .santaro-lp img{ max-width: 100%; height: auto; display: block; }
+  @media (min-width: 700px){ .santaro-lp{ max-width: 720px; } }
+  @media (min-width: 1024px){ .santaro-lp{ max-width: 1140px; } }
+
+  /* ---------- Botones ---------- */
+  .san-btn{
+    display: inline-block;
+    font-family: var(--san-font-heading);
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+    padding: clamp(11px,10px + .3vw,14px) clamp(22px,20px + 1vw,32px);
+    font-size: clamp(13px,12.5px + .2vw,15px);
+  }
+  .san-btn--solid{ background: var(--san-brown); color: var(--san-cream); }
+  .san-btn--light{ background: var(--san-cream); color: var(--san-brown); }
+  .san-btn--outline{ background: #fff; border: 1px solid var(--san-brown); color: var(--san-brown); }
+  .san-btn:hover{ filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(61,43,34,.18); }
+  .san-btn:focus-visible, .san-faq-q:focus-visible, .san-toggle:focus-visible{
+    outline: 3px solid #A98467; outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .san-btn{ transition: none; }
+    .san-btn:hover{ transform: none; }
+  }
+  .san-cta-center{ text-align: center; margin-top: 16px; }
+  a.san-btn{ text-decoration: none; }
+
+  /* ---------- 1. Hero ---------- */
+  .san-hero{ padding: clamp(20px,5vw,40px) clamp(16px,4vw,32px) clamp(24px,5vw,40px); text-align: center; }
+  .san-badge{
+    display: inline-block; background: var(--san-brown); color: var(--san-cream);
+    font-family: var(--san-font-heading); font-weight: 700;
+    font-size: clamp(11px,10px + .2vw,13px);
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .san-hero-media{ max-width: 320px; margin: 0 auto 16px; }
+  .san-h1{
+    font-family: var(--san-font-heading); font-weight: 700;
+    font-size: clamp(22px, 18px + 2.2vw, 34px);
+    line-height: 1.25; margin: 0 0 10px; color: var(--san-text);
+  }
+  .san-lead{
+    font-family: var(--san-font-body);
+    font-size: clamp(14px,13px + .3vw,16px);
+    line-height: 1.55; margin: 0 0 16px; color: var(--san-text-soft);
+  }
+  .san-price-old{ font-size: clamp(14px,13.5px,16px); color: var(--san-muted); text-decoration: line-through; opacity: .65; margin-bottom: 6px; }
+  .san-price-new{
+    font-family: var(--san-font-accent); font-style: italic; font-weight: 700;
+    font-size: clamp(32px, 26px + 3vw, 48px);
+    color: var(--san-brown); margin-bottom: 6px; line-height: 1;
+  }
+  .san-price-note{ font-size: clamp(12px,11.5px + .1vw,14px); color: var(--san-text-soft); margin-bottom: 18px; }
+  .san-pills{ display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 18px; }
+  .san-pill{
+    background: #fff; border: 1px solid var(--san-brown); color: var(--san-text-soft);
+    font-family: var(--san-font-heading); font-weight: 600;
+    font-size: clamp(11px,10.5px + .1vw,12px); padding: 6px 12px; border-radius: 16px;
+  }
+  .san-trust-line{
+    border-top: 1px solid var(--san-border-soft); padding-top: 12px;
+    font-family: var(--san-font-accent); font-style: italic;
+    font-size: clamp(13px,12.5px + .1vw,16px); color: var(--san-text-soft);
+  }
+  @media (min-width: 900px){
+    .san-hero{ display: flex; align-items: center; gap: 48px; text-align: left; padding: 56px 40px; }
+    .san-hero-media{ flex: 0 0 42%; max-width: 440px; margin: 0; }
+    .san-hero-content{ flex: 1; }
+    .san-pills{ justify-content: flex-start; }
+  }
+
+  /* ---------- Secciones genéricas ---------- */
+  .san-section{ padding: clamp(20px,4vw,32px) clamp(16px,4vw,32px); }
+  .san-h2{
+    font-family: var(--san-font-heading); font-weight: 700;
+    font-size: clamp(19px,17px + 1vw,26px);
+    margin: 0 0 16px; color: var(--san-text);
+  }
+  @media (min-width: 1024px){ .san-section{ max-width: 900px; margin: 0 auto; } }
+
+  /* ---------- 2. Identificación ---------- */
+  .san-pain-list{ display: flex; flex-direction: column; gap: 10px; }
+  .san-pain-item{ background: #fff; border-left: 4px solid var(--san-brown); border-radius: 0 10px 10px 0; padding: 12px 14px; }
+  .san-pain-item p{ margin: 0; font-size: clamp(13.5px,13px + .2vw,15px); line-height: 1.55; }
+  @media (min-width: 700px){ .san-pain-list{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } }
+
+  /* ---------- 3. Beneficios ---------- */
+  .san-benefits-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .san-benefit-card{ background: #fff; border: 1px solid var(--san-border); border-radius: 10px; padding: 14px; }
+  .san-benefit-icon{ font-size: clamp(20px,18px + .5vw,24px); margin-bottom: 6px; }
+  .san-benefit-title{ font-family: var(--san-font-heading); font-weight: 700; font-size: clamp(13px,12.5px + .1vw,14.5px); margin-bottom: 4px; }
+  .san-benefit-text{ font-size: clamp(12px,11.5px + .1vw,13px); line-height: 1.45; color: var(--san-text-soft); }
+  @media (min-width: 700px){ .san-benefits-grid{ grid-template-columns: repeat(3,1fr); gap: 14px; } }
+  @media (min-width: 1024px){ .san-benefits-grid{ gap: 18px; } .san-benefit-card{ padding: 18px; } }
+
+  /* ---------- 4. Qué incluye ---------- */
+  .san-include-card{ background: #fff; border: 1px solid var(--san-border); border-radius: 10px; padding: 12px; display: flex; gap: 12px; align-items: center; max-width: 560px; margin: 0 auto; }
+  .san-include-media{ width: 72px; flex-shrink: 0; }
+  .san-include-media img{ height: 72px; object-fit: cover; border-radius: 8px; }
+  .san-include-tag{ display: inline-block; background: var(--san-brown); color: var(--san-cream); font-family: var(--san-font-heading); font-weight: 700; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-bottom: 4px; }
+  .san-include-title{ font-family: var(--san-font-heading); font-weight: 700; font-size: clamp(13.5px,13px + .1vw,15px); margin-bottom: 2px; }
+  .san-include-text{ font-size: clamp(12px,11.5px + .1vw,13px); line-height: 1.45; color: var(--san-text-soft); }
+  @media (min-width: 700px){ .san-include-card{ max-width: 640px; padding: 16px; } .san-include-media{ width: 96px; } .san-include-media img{ height: 96px; } }
+
+  /* ---------- 5. Tabla comparativa ---------- */
+  .san-table-wrap{ border-radius: 10px; overflow: hidden; border: 1px solid var(--san-border); }
+  .san-table-row{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; font-size: clamp(11px,10.5px + .3vw,13px); text-align: center; }
+  .san-table-row div{ padding: 8px 6px; }
+  .san-table-row div:first-child{ text-align: left; }
+  .san-table-head{ background: var(--san-brown); color: var(--san-cream); font-family: var(--san-font-heading); font-weight: 700; }
+  .san-table-row--white{ background: #fff; }
+  .san-table-row--alt{ background: #F5EDE1; }
+
+  /* ---------- 6. Imagen en contexto ---------- */
+  .san-context{ text-align: center; }
+  .san-context p{ font-size: clamp(12.5px,12px + .1vw,14px); color: var(--san-text-soft); margin: 0 0 14px; }
+  .san-context-media{ max-width: 480px; margin: 0 auto; }
+  @media (min-width: 700px){ .san-context-media{ max-width: 600px; } }
+
+  /* ---------- 7. Urgencia ---------- */
+  .san-section--brand{
+    padding: clamp(24px,5vw,40px) clamp(16px,4vw,32px);
+    background: linear-gradient(135deg, var(--san-brown), var(--san-brown-dark));
+    color: var(--san-cream); text-align: center;
+  }
+  .san-section--brand p{ margin: 0 0 16px; opacity: .9; font-size: clamp(12.5px,12px + .1vw,14px); }
+  .san-countdown{ display: none; justify-content: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .santaro-lp.san-js .san-countdown{ display: flex; }
+  .san-countdown-box{ background: rgba(255,255,255,.15); border-radius: 8px; padding: 10px 14px; min-width: 56px; }
+  .san-countdown-num{ font-family: var(--san-font-heading); font-size: clamp(20px,18px + .5vw,26px); font-weight: 700; }
+  .san-countdown-label{ font-size: 10px; letter-spacing: .03em; }
+  .san-stock-bar{ background: rgba(255,255,255,.2); border-radius: 10px; height: 8px; overflow: hidden; max-width: 280px; margin: 0 auto 18px; }
+  .san-stock-fill{ background: var(--san-cream); height: 100%; width: 85%; transition: width .6s ease; }
+  .san-stock-text{ font-size: 12px; margin: 0 0 6px; }
+
+  /* ---------- 8. Reseñas ---------- */
+  .san-reviews-grid{ display: flex; flex-direction: column; gap: 10px; }
+  .san-review-card{ background: #fff; border: 1px solid var(--san-border); border-radius: 10px; padding: 12px; }
+  .san-review-head{ display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .san-review-avatar{ width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; overflow: hidden; }
+  .san-review-avatar img{ width: 100%; height: 100%; object-fit: cover; }
+  .san-review-name{ font-family: var(--san-font-heading); font-weight: 700; font-size: 13px; }
+  .san-review-stars{ font-size: 11px; color: var(--san-text-soft); }
+  .san-review-date{ font-size: 11px; color: var(--san-muted); }
+  .san-review-text{ margin: 0; font-size: clamp(12.5px,12px + .1vw,13.5px); line-height: 1.45; }
+  .san-reviews-more{ margin-top: 12px; }
+  .san-reviews-extra{ display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .san-toggle{ display: block; text-align: center; border: 1px solid var(--san-brown); color: var(--san-text-soft); font-family: var(--san-font-heading); font-weight: 700; font-size: 13px; padding: 10px; border-radius: 8px; cursor: pointer; list-style: none; }
+  .san-toggle::-webkit-details-marker{ display: none; }
+  .san-toggle-less{ display: none; }
+  .san-reviews-more[open] .san-toggle-more{ display: none; }
+  .san-reviews-more[open] .san-toggle-less{ display: inline; }
+  .san-divider{ border-top: 1px solid var(--san-border-soft); margin: 18px 0; }
+  @media (min-width: 700px){
+    .san-reviews-grid, .san-reviews-extra{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+
+  /* ---------- 9. Compra segura ---------- */
+  .san-section--dark2{ padding: clamp(24px,4vw,32px) clamp(16px,4vw,32px); background: var(--san-brown-dark); color: var(--san-cream); }
+  .san-security-grid{ display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .san-security-item{ background: rgba(255,255,255,.08); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: center; }
+  .san-security-icon{ font-size: 18px; }
+  .san-security-text{ font-size: clamp(12px,11.5px + .1vw,13px); line-height: 1.45; }
+  .san-payment-logos{ display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; align-items: center; }
+  .san-payment-logo{ background: #fff; border-radius: 10px; padding: 10px 14px; max-width: 260px; }
+  @media (min-width: 700px){ .san-security-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } .san-section--dark2{ max-width: 900px; margin: 0 auto; } }
+
+  /* ---------- 10. Envío ---------- */
+  .san-section--alt{ padding: clamp(24px,4vw,32px) clamp(16px,4vw,32px); background: var(--san-cream); }
+  .san-shipping-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 720px; margin: 0 auto; }
+  .san-shipping-card{ background: #fff; border-radius: 10px; padding: 14px; text-align: center; }
+  .san-shipping-icon{ font-size: clamp(20px,18px + .3vw,22px); margin-bottom: 6px; }
+  .san-shipping-title{ font-family: var(--san-font-heading); font-weight: 700; font-size: clamp(13px,12.5px + .1vw,14px); margin-bottom: 4px; }
+  .san-shipping-text{ font-size: clamp(11px,10.5px + .1vw,12px); color: var(--san-text-soft); line-height: 1.45; }
+
+  /* ---------- 11. FAQ ---------- */
+  .san-faq-wrap{ }
+  .san-faq-item{ border-bottom: 1px solid var(--san-border); }
+  .san-faq-q{ display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; cursor: pointer; gap: 12px; list-style: none; }
+  .san-faq-q::-webkit-details-marker{ display: none; }
+  .san-faq-q span:first-child{ font-family: var(--san-font-heading); font-weight: 700; font-size: clamp(12.5px,12px + .2vw,14.5px); }
+  .san-faq-arrow{ font-size: 12px; transition: transform .3s ease; flex-shrink: 0; }
+  .san-faq-item[open] .san-faq-arrow{ transform: rotate(180deg); }
+  .san-faq-a{ padding: 0 0 14px; }
+  .san-faq-a p{ margin: 0 4px; font-size: clamp(12px,11.5px + .1vw,13.5px); line-height: 1.5; color: var(--san-text-soft); }
+  @media (min-width: 900px){ .san-faq-wrap{ max-width: 760px; margin: 0 auto; } }
+
+  /* ---------- 12. CTA final ---------- */
+  .san-final{ padding: clamp(24px,5vw,44px) clamp(16px,4vw,32px); background: linear-gradient(135deg, var(--san-brown), var(--san-brown-dark)); color: var(--san-cream); text-align: center; }
+  .san-final-title{ font-family: var(--san-font-accent); font-style: italic; font-weight: 700; font-size: clamp(20px,18px + 1.2vw,30px); margin: 0 0 8px; }
+  .san-final-sub{ font-size: clamp(12.5px,12px + .1vw,14px); margin: 0 0 18px; opacity: .9; }
+  .san-final-note{ font-size: 11px; margin: 14px 0 0; opacity: .8; }
+
+  /* ---------- 13. Animaciones ----------
+     Las animaciones ambientales (flotación, pulso, brillo) son CSS
+     puro y corren siempre. El revelado al scroll requiere JS: la
+     clase .san-anim se agrega solo si el navegador lo soporta y el
+     usuario no pidió reducir movimiento. Sin JS, todo queda visible. */
+  .san-benefit-card, .san-review-card, .san-shipping-card, .san-pain-item, .san-security-item, .san-include-card{
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .san-benefit-card:hover, .san-review-card:hover, .san-shipping-card:hover, .san-include-card:hover{
+    transform: translateY(-4px); box-shadow: 0 10px 24px rgba(61,43,34,.12);
+  }
+  @keyframes san-float{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-9px); } }
+  @keyframes san-pulse-soft{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.04); } }
+  @keyframes san-shine{ 0%{ left: -80%; } 45%{ left: 130%; } 100%{ left: 130%; } }
+  .santaro-lp.san-anim .san-reveal{
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+    transition-delay: var(--san-delay, 0ms);
+  }
+  .santaro-lp.san-anim .san-reveal.is-in{ opacity: 1; transform: none; }
+  .san-hero-media img{ animation: san-float 5.5s ease-in-out infinite; }
+  .san-badge{ animation: san-pulse-soft 2.6s ease-in-out infinite; }
+  .san-countdown-box{ animation: san-pulse-soft 2.2s ease-in-out infinite; }
+  .san-btn{ position: relative; overflow: hidden; }
+  .san-btn::after{
+    content: ''; position: absolute; top: 0; left: -80%; width: 45%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    animation: san-shine 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .san-hero-media img,
+    .san-badge,
+    .san-countdown-box,
+    .san-btn::after{ animation: none; }
+    .santaro-lp.san-anim .san-reveal{ opacity: 1; transform: none; transition: none; }
+    .san-benefit-card:hover, .san-review-card:hover, .san-shipping-card:hover, .san-include-card:hover{ transform: none; }
+  }
+</style>
 
 <!-- ===================== 1. HERO ===================== -->
-<div style="padding:28px 20px;">
-<div style="max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px;">
-<div style="flex:1 1 280px;max-width:420px;">
-<!-- ACÁ VA: foto principal de la cama puff gris, de frente, sobre fondo claro, mostrando bien el pelo -->
-<img src="URL_IMAGEN_HERO_CAMA_PUFF_GRIS" alt="Cama puff gris de pelo para mascotas" style="width:100%;height:auto;display:block;border-radius:12px;" />
-</div>
-<div style="flex:1 1 300px;max-width:560px;">
-<div style="display:inline-block;background:#5C4033;color:#F8EFE4;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:12px;padding:6px 14px;border-radius:20px;margin:0 0 14px;">OFERTA POR TIEMPO LIMITADO</div>
-<h1 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:28px;line-height:1.25;margin:0 0 10px;color:#3D2B22;">La cama puff que tu mascota va a elegir antes que cualquier otro rincón de la casa</h1>
-<p style="font-family:'Montserrat',Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;margin:0 0 16px;color:#5C4033;">Redonda, de 60 cm de diámetro, de pelo gris suavecito y calentito, con base de friselina gruesa y relleno de vellón siliconado premium que nunca pierde la forma. Hoy con precio especial por transferencia.</p>
-<p style="font-size:15px;color:#8A7267;text-decoration:line-through;margin:0 0 4px;">$80.000</p>
-<p style="font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:42px;color:#5C4033;margin:0 0 6px;line-height:1;">$50.000</p>
-<p style="font-size:13px;color:#5C4033;margin:0 0 16px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">3 cuotas sin interés de $16.667 con Mercado Pago · $45.000 pagando por transferencia</p>
-<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;"><span style="background:#ffffff;border:1px solid #5C4033;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:600;font-size:11px;padding:6px 12px;border-radius:16px;">Pelo gris suave y calentito</span><span style="background:#ffffff;border:1px solid #5C4033;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:600;font-size:11px;padding:6px 12px;border-radius:16px;">Vellón siliconado premium</span><span style="background:#ffffff;border:1px solid #5C4033;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:600;font-size:11px;padding:6px 12px;border-radius:16px;">60 cm de diámetro</span><span style="background:#ffffff;border:1px solid #5C4033;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:600;font-size:11px;padding:6px 12px;border-radius:16px;">Envío gratis a todo el país</span></div>
-<p style="border-top:1px solid #D8C9B8;padding:12px 0 0;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;color:#5C4033;margin:0;">&#11088;&#11088;&#11088;&#11088;&#11088; +450 mascotas ya duermen en la suya</p>
-</div>
-</div>
+<div class="san-hero">
+  <div class="san-hero-media">
+    <!-- ACÁ VA: foto principal de la cama puff gris, de frente, sobre fondo claro, mostrando bien el pelo -->
+    <img src="URL_IMAGEN_HERO_CAMA_PUFF_GRIS" alt="Cama puff gris de pelo para mascotas" />
+  </div>
+  <div class="san-hero-content">
+    <div class="san-badge">OFERTA POR TIEMPO LIMITADO</div>
+    <h1 class="san-h1">La cama puff que tu mascota va a elegir antes que cualquier otro rincón de la casa</h1>
+    <p class="san-lead">Redonda, de 60 cm de diámetro, de pelo gris suavecito y calentito, con base de friselina gruesa y relleno de vellón siliconado premium que nunca pierde la forma. Hoy con precio especial por transferencia.</p>
+    <div class="san-price-old">$80.000</div>
+    <div class="san-price-new">$50.000</div>
+    <div class="san-price-note">3 cuotas sin interés de $16.667 con Mercado Pago · $45.000 pagando por transferencia</div>
+    <div class="san-pills">
+      <div class="san-pill">Pelo gris suave y calentito</div>
+      <div class="san-pill">Vellón siliconado premium</div>
+      <div class="san-pill">60 cm de diámetro</div>
+      <div class="san-pill">Envío gratis a todo el país</div>
+    </div>
+    <div class="san-trust-line">⭐⭐⭐⭐⭐ +450 mascotas ya duermen en la suya</div>
+  </div>
 </div>
 
 <!-- ===================== 2. IDENTIFICACIÓN ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">¿Tu mascota da vueltas y vueltas antes de encontrar un lugar cómodo?</h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px;"><div style="flex:1 1 240px;background:#ffffff;border-left:4px solid #5C4033;border-radius:0 10px 10px 0;padding:12px 14px;"><p style="margin:0;font-size:14px;line-height:1.55;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Se acuesta en el sillón, en tu cama, en el piso frío, en cualquier lado menos en su propia cama.</p></div><div style="flex:1 1 240px;background:#ffffff;border-left:4px solid #5C4033;border-radius:0 10px 10px 0;padding:12px 14px;"><p style="margin:0;font-size:14px;line-height:1.55;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Compraste una cama barata y a los dos meses el relleno ya estaba todo aplastado de un lado.</p></div><div style="flex:1 1 240px;background:#ffffff;border-left:4px solid #5C4033;border-radius:0 10px 10px 0;padding:12px 14px;"><p style="margin:0;font-size:14px;line-height:1.55;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Las camas con base finita se corren, se deforman y terminan rotas en poco tiempo.</p></div><div style="flex:1 1 240px;background:#ffffff;border-left:4px solid #5C4033;border-radius:0 10px 10px 0;padding:12px 14px;"><p style="margin:0;font-size:14px;line-height:1.55;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Sentís que le falta un lugar propio, cálido, que sea solo suyo.</p></div></div>
-</div>
+<div class="san-section">
+  <h2 class="san-h2">¿Tu mascota da vueltas y vueltas antes de encontrar un lugar cómodo?</h2>
+  <div class="san-pain-list">
+    <div class="san-pain-item"><p>Se acuesta en el sillón, en tu cama, en el piso frío, en cualquier lado menos en su propia cama.</p></div>
+    <div class="san-pain-item"><p>Compraste una cama barata y a los dos meses el relleno ya estaba todo aplastado de un lado.</p></div>
+    <div class="san-pain-item"><p>Las camas con base finita se corren, se deforman y terminan rotas en poco tiempo.</p></div>
+    <div class="san-pain-item"><p>Sentís que le falta un lugar propio, cálido, que sea solo suyo.</p></div>
+  </div>
 </div>
 
 <!-- ===================== 3. BENEFICIOS ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">Por qué esta cama no se aplasta ni pierde la forma como las demás</h2>
-<div style="display:flex;flex-wrap:wrap;gap:12px;"><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#128564;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">Va a querer quedarse ahí</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">El vellón da un rebote suave que invita a hacerse bollito y no moverse más.</div></div><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#127969;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">Por fin tiene su lugar</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Un espacio propio, cálido, que asocia solo con descansar tranquilo.</div></div><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#128293;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">Pelo suave y calentito</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">El pelo gris es abrigado y agradable al tacto, ideal para las siestas largas.</div></div><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#128260;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">No pierde la forma nunca</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">El vellón siliconado premium vuelve a su forma original después de cada uso.</div></div><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#128207;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">Tamaño ideal</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">60 cm de diámetro: perfecta para gatos y perros chicos y medianos que duermen enroscados.</div></div><div style="flex:1 1 150px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;"><div style="font-size:22px;margin-bottom:6px;">&#129525;</div><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:#3D2B22;">Base de friselina gruesa</div><div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Base firme y resistente que aísla del piso y cuida la cama por debajo.</div></div></div>
-</div>
+<div class="san-section">
+  <h2 class="san-h2">Por qué esta cama no se aplasta ni pierde la forma como las demás</h2>
+  <div class="san-benefits-grid">
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">💤</div>
+      <div class="san-benefit-title">Va a querer quedarse ahí</div>
+      <div class="san-benefit-text">El vellón da un rebote suave que invita a hacerse bollito y no moverse más.</div>
+    </div>
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">🏡</div>
+      <div class="san-benefit-title">Por fin tiene su lugar</div>
+      <div class="san-benefit-text">Un espacio propio, cálido, que asocia solo con descansar tranquilo.</div>
+    </div>
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">🔥</div>
+      <div class="san-benefit-title">Pelo suave y calentito</div>
+      <div class="san-benefit-text">El pelo gris es abrigado y agradable al tacto, ideal para las siestas largas.</div>
+    </div>
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">🔄</div>
+      <div class="san-benefit-title">No pierde la forma nunca</div>
+      <div class="san-benefit-text">El vellón siliconado vuelve a su forma original después de cada lavado.</div>
+    </div>
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">📏</div>
+      <div class="san-benefit-title">Tamaño ideal</div>
+      <div class="san-benefit-text">60 cm de diámetro: perfecta para gatos y perros chicos y medianos que duermen enroscados.</div>
+    </div>
+    <div class="san-benefit-card">
+      <div class="san-benefit-icon">🧵</div>
+      <div class="san-benefit-title">Base de friselina gruesa</div>
+      <div class="san-benefit-text">Base firme y resistente que aísla del piso y cuida la cama por debajo.</div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== 4. QUÉ INCLUYE ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">Lo que recibís en tu casa</h2>
-<div style="background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:14px;display:flex;gap:14px;align-items:center;max-width:640px;margin:0 auto;">
-<!-- ACÁ VA: foto de la cama puff gris completa -->
-<div style="width:90px;flex-shrink:0;"><img src="URL_IMAGEN_CAMA_PUFF_GRIS_INCLUYE" alt="Cama puff gris completa" style="width:90px;height:90px;display:block;border-radius:8px;" /></div>
-<div>
-<div style="display:inline-block;background:#5C4033;color:#F8EFE4;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:10px;padding:2px 8px;border-radius:10px;margin-bottom:4px;">PRODUCTO PRINCIPAL</div>
-<div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:2px;color:#3D2B22;">Cama puff completa</div>
-<div style="font-size:12.5px;line-height:1.45;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">De pelo gris suavecito, con base de friselina gruesa y relleno de vellón siliconado premium ya colocado, lista para usar.</div>
-</div>
-</div>
-</div>
+<div class="san-section">
+  <h2 class="san-h2">Lo que recibís en tu casa</h2>
+  <div class="san-include-card">
+    <!-- ACÁ VA: foto de la cama puff gris completa -->
+    <div class="san-include-media"><img src="URL_IMAGEN_CAMA_PUFF_GRIS_INCLUYE" alt="Cama puff gris completa" /></div>
+    <div>
+      <div class="san-include-tag">PRODUCTO PRINCIPAL</div>
+      <div class="san-include-title">Cama puff completa</div>
+      <div class="san-include-text">De pelo gris suavecito, con base de friselina gruesa y relleno de vellón siliconado premium ya colocado, lista para usar.</div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== 5. TABLA COMPARATIVA ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">En qué se nota la diferencia real</h2>
-<div style="border:1px solid #E3D5C4;border-radius:10px;overflow:hidden;"><div style="display:flex;background:#5C4033;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;color:#F8EFE4;">Característica</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;color:#F8EFE4;">Nuestra cama</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;color:#F8EFE4;">Camas comunes</div></div><div style="display:flex;background:#ffffff;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Tipo de relleno</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Vellón siliconado premium</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Espuma o fibra común</div></div><div style="display:flex;background:#F5EDE1;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Mantiene la forma</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Sí, siempre</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Se aplasta con el uso</div></div><div style="display:flex;background:#ffffff;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Tacto</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Pelo suave y abrigado</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Telas ásperas o finas</div></div><div style="display:flex;background:#F5EDE1;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Base</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Friselina gruesa y resistente</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Tela fina que se rompe</div></div><div style="display:flex;background:#ffffff;"><div style="flex:1.3;padding:9px 8px;font-size:12px;text-align:left;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Tamaño</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">60 cm de diámetro</div><div style="flex:1;padding:9px 8px;font-size:12px;text-align:center;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">Varía, sin dato claro</div></div></div>
-<div style="text-align:center;margin-top:18px;"><a href="#" style="display:inline-block;background:#5C4033;color:#F8EFE4;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;border-radius:8px;padding:13px 28px;font-size:14px;text-decoration:none;">Quiero la mía</a></div>
-</div>
+<div class="san-section">
+  <h2 class="san-h2">En qué se nota la diferencia real</h2>
+  <div class="san-table-wrap">
+    <div class="san-table-row san-table-head">
+      <div>Característica</div><div>Nuestra cama</div><div>Camas comunes</div>
+    </div>
+    <div class="san-table-row san-table-row--white">
+      <div>Tipo de relleno</div><div>Vellón siliconado premium</div><div>Espuma o fibra común</div>
+    </div>
+    <div class="san-table-row san-table-row--alt">
+      <div>Mantiene la forma</div><div>Sí, siempre</div><div>Se aplasta con el uso</div>
+    </div>
+    <div class="san-table-row san-table-row--white">
+      <div>Tacto</div><div>Pelo suave y abrigado</div><div>Telas ásperas o finas</div>
+    </div>
+    <div class="san-table-row san-table-row--alt">
+      <div>Base</div><div>Friselina gruesa y resistente</div><div>Tela fina que se rompe</div>
+    </div>
+    <div class="san-table-row san-table-row--white">
+      <div>Tamaño</div><div>60 cm de diámetro</div><div>Varía, sin dato claro</div>
+    </div>
+  </div>
+  <div class="san-cta-center">
+    <a id="lp-cta-tabla" class="san-btn san-btn--solid" href="#san-top">Quiero la mía</a>
+  </div>
 </div>
 
 <!-- ===================== 6. IMAGEN EN CONTEXTO ===================== -->
-<div style="padding:24px 20px;text-align:center;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 8px;color:#3D2B22;text-align:center;">Así se ve cuando por fin encuentra su lugar</h2>
-<p style="font-size:13.5px;color:#5C4033;margin:0 0 14px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Un rincón propio, cómodo y calentito, en cualquier parte de tu casa. El gris combina con todo.</p>
-<!-- ACÁ VA: foto o gif de un gato o perro real durmiendo enroscado en la cama puff -->
-<img src="URL_IMAGEN_CONTEXTO_MASCOTA_EN_PUFF" alt="Mascota descansando en la cama puff gris" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto;border-radius:12px;" />
-</div>
+<div class="san-section san-context">
+  <h2 class="san-h2">Así se ve cuando por fin encuentra su lugar</h2>
+  <p>Un rincón propio, cómodo y calentito, en cualquier parte de tu casa. El gris combina con todo.</p>
+  <!-- ACÁ VA: foto o gif de un gato o perro real durmiendo enroscado en la cama puff -->
+  <div class="san-context-media"><img src="URL_IMAGEN_CONTEXTO_MASCOTA_EN_PUFF" alt="Mascota descansando en la cama puff gris" /></div>
 </div>
 
 <!-- ===================== 7. URGENCIA ===================== -->
-<div style="padding:30px 20px;background:#5C4033;color:#F8EFE4;text-align:center;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 8px;color:#F8EFE4;text-align:center;">Quedan pocas unidades con este precio</h2>
-<p style="margin:0 0 14px;font-size:14px;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">La oferta de $50.000 (o $45.000 por transferencia) termina hoy a la medianoche.</p>
-<!-- ACÁ VA: el gif del contador (assets/contador-santaro.gif). Subilo con el botón de imagen del editor y va a quedar animado -->
-<img src="URL_GIF_CONTADOR" alt="La oferta termina hoy a la medianoche" style="display:block;margin:0 auto 14px;max-width:280px;width:100%;height:auto;" />
-<p style="margin:0 0 18px;font-size:12.5px;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">Quedan pocas unidades en stock: cuando se agotan, vuelve el precio de lista.</p>
-<a href="#" style="display:inline-block;background:#F8EFE4;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;border-radius:8px;padding:13px 28px;font-size:14px;text-decoration:none;">Asegurar la mía ahora</a>
+<div class="san-section--brand">
+  <h2 class="san-h2" style="color: var(--san-cream); margin-bottom: 6px;">Quedan pocas unidades con este precio</h2>
+  <p>La oferta de $50.000 (o $45.000 por transferencia) termina hoy a la medianoche.</p>
+  <div class="san-countdown">
+    <div class="san-countdown-box"><div id="lp-horas" class="san-countdown-num">00</div><div class="san-countdown-label">HORAS</div></div>
+    <div class="san-countdown-box"><div id="lp-minutos" class="san-countdown-num">00</div><div class="san-countdown-label">MIN</div></div>
+    <div class="san-countdown-box"><div id="lp-segundos" class="san-countdown-num">00</div><div class="san-countdown-label">SEG</div></div>
+  </div>
+  <p class="san-stock-text">Quedan <span id="lp-stock-num">9</span> unidades en stock</p>
+  <div class="san-stock-bar"><div id="lp-stock-fill" class="san-stock-fill"></div></div>
+  <a id="lp-cta-urgencia" class="san-btn san-btn--light" href="#san-top">Asegurar la mía ahora</a>
 </div>
 
 <!-- ===================== 8. RESEÑAS ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">Más de 450 mascotas ya tienen su lugar propio</h2>
-<div style="display:flex;flex-wrap:wrap;gap:12px;"><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">M</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Mariana G.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 3 días</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">mi gata se hizo bollito apenas la saqué de la caja jaja no se levantó en toda la tarde</p></div><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">F</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Facundo R.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 1 semana</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">el pelo es re suave y el gris queda genial, encima disimula los pelos que larga mi perro</p></div><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">J</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Julieta M.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 2 semanas</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">llego rapido y bien embalada, mi caniche tardó un dia en animarse pero ahora duerme ahi siempre</p></div><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">L</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Lucas P.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 3 semanas</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">buenisima relacion precio calidad, el relleno es re tupido no como otras que compre antes</p></div></div>
-<details style="margin-top:14px;">
-<summary style="display:block;text-align:center;border:1px solid #5C4033;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;padding:10px;border-radius:8px;cursor:pointer;list-style:none;">Ver más opiniones &#9660;</summary>
-<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;"><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">S</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Sabrina D.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 1 mes</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">la compre para mi gato y tambien se quiere meter la perra jaja van a terminar necesitando otra</p></div><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">N</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Nicolás V.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 1 mes</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">todo bien con el producto, tardó un poco mas de lo que pensaba en llegar pero nada grave</p></div><div style="flex:1 1 260px;background:#ffffff;border:1px solid #E3D5C4;border-radius:10px;padding:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:50%;background:#5C4033;color:#F8EFE4;display:flex;align-items:center;justify-content:center;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:16px;">C</div><div style="flex:1;"><div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13px;color:#3D2B22;">Carla F.</div><div style="font-size:11px;color:#5C4033;">&#11088;&#11088;&#11088;&#11088;&#11088;</div></div><div style="font-size:11px;color:#8A7267;">hace 2 meses</div></div><p style="margin:0;font-size:13px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#3D2B22;">el vellon vuelve a su forma solo, la sacudis y queda como nueva, la recomiendo 100%</p></div></div>
-</details>
-<div style="border-top:1px solid #D8C9B8;margin:18px 0;"></div>
-<div style="text-align:center;"><a href="#" style="display:inline-block;background:#5C4033;color:#F8EFE4;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;border-radius:8px;padding:13px 28px;font-size:14px;text-decoration:none;">Quiero una para mi mascota</a></div>
-</div>
+<div class="san-section">
+  <h2 class="san-h2">Más de 450 mascotas ya tienen su lugar propio</h2>
+  <div class="san-reviews-grid">
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_1" alt="Mariana G." /></div>
+        <div style="flex:1;"><div class="san-review-name">Mariana G.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 3 días</div>
+      </div>
+      <p class="san-review-text">mi gata se hizo bollito apenas la saqué de la caja jaja no se levantó en toda la tarde</p>
+    </div>
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_2" alt="Facundo R." /></div>
+        <div style="flex:1;"><div class="san-review-name">Facundo R.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 1 semana</div>
+      </div>
+      <p class="san-review-text">el pelo es re suave y el gris queda genial, encima disimula los pelos que larga mi perro</p>
+    </div>
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_3" alt="Julieta M." /></div>
+        <div style="flex:1;"><div class="san-review-name">Julieta M.</div><div class="san-review-stars">⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 2 semanas</div>
+      </div>
+      <p class="san-review-text">llego rapido y bien embalada, mi caniche tardó un dia en animarse pero ahora duerme ahi siempre</p>
+    </div>
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_4" alt="Lucas P." /></div>
+        <div style="flex:1;"><div class="san-review-name">Lucas P.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 3 semanas</div>
+      </div>
+      <p class="san-review-text">buenisima relacion precio calidad, el relleno es re tupido no como otras que compre antes</p>
+    </div>
+  </div>
+
+  <details class="san-reviews-more">
+  <summary id="lp-ver-mas-btn" class="san-toggle"><span class="san-toggle-more">Ver más opiniones ▼</span><span class="san-toggle-less">Ver menos ▲</span></summary>
+  <div id="lp-mas-resenas" class="san-reviews-extra">
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_5" alt="Sabrina D." /></div>
+        <div style="flex:1;"><div class="san-review-name">Sabrina D.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 1 mes</div>
+      </div>
+      <p class="san-review-text">la compre para mi gato y tambien se quiere meter la perra jaja van a terminar necesitando otra</p>
+    </div>
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_6" alt="Nicolás V." /></div>
+        <div style="flex:1;"><div class="san-review-name">Nicolás V.</div><div class="san-review-stars">⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 1 mes</div>
+      </div>
+      <p class="san-review-text">todo bien con el producto, tardó un poco mas de lo que pensaba en llegar pero nada grave</p>
+    </div>
+    <div class="san-review-card">
+      <div class="san-review-head">
+        <div class="san-review-avatar"><img src="URL_AVATAR_7" alt="Carla F." /></div>
+        <div style="flex:1;"><div class="san-review-name">Carla F.</div><div class="san-review-stars">⭐⭐⭐⭐⭐</div></div>
+        <div class="san-review-date">hace 2 meses</div>
+      </div>
+      <p class="san-review-text">el vellon vuelve a su forma solo, la sacudis y queda como nueva, la recomiendo 100%</p>
+    </div>
+  </div>
+  </details>
+
+  <div class="san-divider"></div>
+  <div class="san-cta-center">
+    <a id="lp-cta-resenas" class="san-btn san-btn--solid" href="#san-top">Quiero una para mi mascota</a>
+  </div>
 </div>
 
 <!-- ===================== 9. COMPRA SEGURA ===================== -->
-<div style="padding:28px 20px;background:#3D2B22;color:#F8EFE4;">
-<div style="max-width:900px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#F8EFE4;text-align:center;">Comprá tranquilo, sin vueltas</h2>
-<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;"><div style="flex:1 1 260px;background:rgba(255,255,255,0.08);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center;"><div style="font-size:18px;">&#128274;</div><div style="font-size:12.5px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">Tus datos viajan encriptados, siempre.</div></div><div style="flex:1 1 260px;background:rgba(255,255,255,0.08);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center;"><div style="font-size:18px;">&#128179;</div><div style="font-size:12.5px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">Pagás con Mercado Pago sin guardar los datos de tu tarjeta.</div></div><div style="flex:1 1 260px;background:rgba(255,255,255,0.08);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center;"><div style="font-size:18px;">&#128737;&#65039;</div><div style="font-size:12.5px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">30 días de garantía: si viene descosida o le falta relleno, la cambiamos.</div></div><div style="flex:1 1 260px;background:rgba(255,255,255,0.08);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center;"><div style="font-size:18px;">&#128172;</div><div style="font-size:12.5px;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">Atención real por WhatsApp, no un bot que te deja esperando.</div></div></div>
-<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;align-items:center;">
-<!-- ACÁ VA: logo de Mercado Pago -->
-<div style="background:#ffffff;border-radius:10px;padding:10px 14px;max-width:220px;"><img src="URL_LOGO_MERCADOPAGO" alt="Mercado Pago" style="max-width:100%;height:auto;display:block;" /></div>
-<div style="background:#ffffff;border-radius:10px;padding:10px 14px;max-width:160px;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Logo_Correo_Argentino.svg/330px-Logo_Correo_Argentino.svg.png" alt="Correo Argentino" style="max-width:100%;height:auto;display:block;" /></div>
-</div>
-</div>
+<div class="san-section--dark2">
+  <h2 class="san-h2" style="color: var(--san-cream); text-align: center;">Comprá tranquilo, sin vueltas</h2>
+  <div class="san-security-grid">
+    <div class="san-security-item"><div class="san-security-icon">🔒</div><div class="san-security-text">Tus datos viajan encriptados, siempre.</div></div>
+    <div class="san-security-item"><div class="san-security-icon">💳</div><div class="san-security-text">Pagás con Mercado Pago sin guardar los datos de tu tarjeta.</div></div>
+    <div class="san-security-item"><div class="san-security-icon">🛡️</div><div class="san-security-text">30 días de garantía: si viene descosida o le falta relleno, la cambiamos.</div></div>
+    <div class="san-security-item"><div class="san-security-icon">💬</div><div class="san-security-text">Atención real por WhatsApp, no un bot que te deja esperando.</div></div>
+  </div>
+  <div class="san-payment-logos">
+    <!-- ACÁ VA: logo de Mercado Pago -->
+    <div class="san-payment-logo"><img src="URL_LOGO_MERCADOPAGO" alt="Mercado Pago" /></div>
+    <!-- ACÁ VA: logo de Correo Argentino -->
+    <div class="san-payment-logo" style="max-width:160px;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Logo_Correo_Argentino.svg/330px-Logo_Correo_Argentino.svg.png" alt="Correo Argentino" /></div>
+  </div>
 </div>
 
 <!-- ===================== 10. ENVÍO ===================== -->
-<div style="padding:28px 20px;">
-<div style="max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;">
-<div style="flex:1 1 240px;background:#ffffff;border-radius:10px;padding:14px;text-align:center;">
-<div style="font-size:22px;margin-bottom:6px;">&#128666;</div>
-<div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13.5px;margin-bottom:4px;color:#3D2B22;">Envío gratis</div>
-<div style="font-size:11.5px;color:#5C4033;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;">A todo el país, sin mínimo de compra.</div>
-</div>
-<div style="flex:1 1 240px;background:#ffffff;border-radius:10px;padding:14px;text-align:center;">
-<div style="font-size:22px;margin-bottom:6px;">&#9201;&#65039;</div>
-<div style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:13.5px;margin-bottom:4px;color:#3D2B22;">Llega rápido</div>
-<div style="font-size:11.5px;color:#5C4033;line-height:1.45;font-family:'Montserrat',Arial,Helvetica,sans-serif;">En el día con Envío Flex en zonas seleccionadas, o por Correo Argentino al resto del país.</div>
-</div>
-</div>
+<div class="san-section--alt">
+  <div class="san-shipping-grid">
+    <div class="san-shipping-card">
+      <div class="san-shipping-icon">🚚</div>
+      <div class="san-shipping-title">Envío gratis</div>
+      <div class="san-shipping-text">A todo el país, sin mínimo de compra.</div>
+    </div>
+    <div class="san-shipping-card">
+      <div class="san-shipping-icon">⏱️</div>
+      <div class="san-shipping-title">Llega rápido</div>
+      <div class="san-shipping-text">En el día con Envío Flex en zonas seleccionadas, o por Correo Argentino al resto del país.</div>
+    </div>
+  </div>
 </div>
 
-<!-- ===================== 11. FAQ ===================== -->
-<div style="padding:24px 20px;">
-<div style="max-width:760px;margin:0 auto;">
-<h2 style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:22px;line-height:1.3;margin:0 0 16px;color:#3D2B22;">Antes de comprar, resolvamos tus dudas</h2>
-<details style="border-bottom:1px solid #E3D5C4;"><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿Se puede lavar?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Sí. Se puede lavar con agua fría y jabón neutro. El relleno de vellón siliconado no se apelmaza: vuelve a su forma y no queda con olor.</p></div></details><details style="border-bottom:1px solid #E3D5C4;"><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿Para qué tamaño de mascota es?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Tiene 60 cm de diámetro, ideal para gatos y perros de razas chicas a medianas que duermen enroscados. Medí a tu mascota hecha bollito antes de comprar, para asegurarte de que entre cómoda.</p></div></details><details style="border-bottom:1px solid #E3D5C4;"><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿El relleno se aplasta con el uso?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">No. Al ser vellón siliconado premium, vuelve a su forma original después de cada uso y de cada lavado, incluso después de mucho tiempo.</p></div></details><details style="border-bottom:1px solid #E3D5C4;"><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿Cuánto tarda en llegar?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">En zonas con Envío Flex puede llegar en el día. Para el resto del país, la enviamos por Correo Argentino sin costo, a todo el territorio nacional.</p></div></details><details style="border-bottom:1px solid #E3D5C4;"><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿Qué pasa si llega con algún defecto?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Tenés 30 días de garantía desde que la recibís. Si viene descosida, con algún fallo o le falta relleno, la cambiamos sin costo.</p></div></details><details style=""><summary style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;list-style:none;"><span style="font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;font-size:14px;color:#3D2B22;">¿Cómo puedo pagar?</span><span style="font-size:12px;color:#5C4033;">&#9660;</span></summary><div style="padding:0 4px 14px;"><p style="margin:0;font-size:13px;line-height:1.5;color:#5C4033;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Podés pagar con Mercado Pago en 3 cuotas sin interés de $16.667, o por transferencia bancaria al precio especial de $45.000.</p></div></details>
-</div>
+<!-- ===================== 11. FAQ ACORDEÓN ===================== -->
+<div class="san-section san-faq-wrap">
+  <h2 class="san-h2">Antes de comprar, resolvamos tus dudas</h2>
+
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q1" class="san-faq-q"><span>¿Se puede lavar?</span><span id="faq-a1-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a1" class="san-faq-a"><p>Sí. Se puede lavar con agua fría y jabón neutro. El relleno de vellón siliconado no se apelmaza: vuelve a su forma y no queda con olor.</p></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q2" class="san-faq-q"><span>¿Para qué tamaño de mascota es?</span><span id="faq-a2-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a2" class="san-faq-a"><p>Tiene 60 cm de diámetro, ideal para gatos y perros de razas chicas a medianas que duermen enroscados. Medí a tu mascota hecha bollito antes de comprar, para asegurarte de que entre cómoda.</p></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q3" class="san-faq-q"><span>¿El relleno se aplasta con el uso?</span><span id="faq-a3-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a3" class="san-faq-a"><p>No. Al ser vellón siliconado premium, vuelve a su forma original después de cada uso y de cada lavado, incluso después de mucho tiempo.</p></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q4" class="san-faq-q"><span>¿Cuánto tarda en llegar?</span><span id="faq-a4-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a4" class="san-faq-a"><p>En zonas con Envío Flex puede llegar en el día. Para el resto del país, la enviamos por Correo Argentino sin costo, a todo el territorio nacional.</p></div>
+  </details>
+  <details class="san-faq-item" name="san-faq">
+    <summary id="faq-q5" class="san-faq-q"><span>¿Qué pasa si llega con algún defecto?</span><span id="faq-a5-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a5" class="san-faq-a"><p>Tenés 30 días de garantía desde que la recibís. Si viene descosida, con algún fallo o le falta relleno, la cambiamos sin costo.</p></div>
+  </details>
+  <details class="san-faq-item" style="border-bottom:none;" name="san-faq">
+    <summary id="faq-q6" class="san-faq-q"><span>¿Cómo puedo pagar?</span><span id="faq-a6-arrow" class="san-faq-arrow">▼</span></summary>
+    <div id="faq-a6" class="san-faq-a"><p>Podés pagar con Mercado Pago en 3 cuotas sin interés de $16.667, o por transferencia bancaria al precio especial de $45.000.</p></div>
+  </details>
 </div>
 
 <!-- ===================== 12. CTA FINAL ===================== -->
-<div style="padding:32px 20px;background:#5C4033;color:#F8EFE4;text-align:center;">
-<h2 style="font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:26px;margin:0 0 8px;color:#F8EFE4;">Hoy es el día de darle un lugar propio</h2>
-<p style="font-size:13.5px;margin:0 0 18px;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">Pelo gris calentito · Vellón siliconado premium · Base de friselina gruesa · Envío gratis a todo el país</p>
-<a href="#" style="display:inline-block;background:#F8EFE4;color:#5C4033;font-family:'Poppins','Montserrat',Arial,sans-serif;font-weight:700;border-radius:8px;padding:13px 28px;font-size:14px;text-decoration:none;">Comprar ahora - $45.000 por transferencia</a>
-<p style="font-size:11px;margin:14px 0 0;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#F8EFE4;">La promo termina hoy a la medianoche</p>
+<div class="san-final">
+  <h2 class="san-final-title">Hoy es el día de darle un lugar propio</h2>
+  <p class="san-final-sub">Pelo gris calentito · Vellón siliconado premium · Base de friselina gruesa · Envío gratis a todo el país</p>
+  <a id="lp-cta-final" class="san-btn san-btn--light" href="#san-top">Comprar ahora - $45.000 por transferencia</a>
+  <p class="san-final-note">La promo termina hoy a la medianoche</p>
 </div>
 </div>
+
+<script>
+(function() {
+
+  var lpRoot = document.querySelector('.santaro-lp');
+  // Marca que el JS está corriendo (muestra el contador)
+  if (lpRoot) lpRoot.classList.add('san-js');
+
+  // CONTADOR HASTA MEDIANOCHE ARGENTINA
+  function getMidnightAR() {
+    var now = new Date();
+    var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    var ar = new Date(utc + (-3 * 3600000));
+    var midnight = new Date(ar);
+    midnight.setHours(24, 0, 0, 0);
+    var diffMs = midnight.getTime() - ar.getTime();
+    return Date.now() + diffMs;
+  }
+  var end = getMidnightAR();
+  function tick() {
+    var rem = Math.max(0, Math.floor((end - Date.now()) / 1000));
+    var h = document.getElementById('lp-horas');
+    var m = document.getElementById('lp-minutos');
+    var s = document.getElementById('lp-segundos');
+    if (h) h.textContent = String(Math.floor(rem / 3600)).padStart(2, '0');
+    if (m) m.textContent = String(Math.floor((rem % 3600) / 60)).padStart(2, '0');
+    if (s) s.textContent = String(rem % 60).padStart(2, '0');
+    if (rem > 0) setTimeout(tick, 1000);
+  }
+  tick();
+
+  // STOCK PSICOLÓGICO
+  var stockEl = document.getElementById('lp-stock-num');
+  var fillEl = document.getElementById('lp-stock-fill');
+  var drops = [[3,8],[9,7],[22,6],[55,5],[140,4],[340,3]];
+  var startTime = Date.now();
+  function checkStock() {
+    var elapsed = (Date.now() - startTime) / 1000;
+    var current = 9;
+    for (var i = 0; i < drops.length; i++) {
+      if (elapsed >= drops[i][0]) current = drops[i][1];
+    }
+    if (stockEl) stockEl.textContent = current;
+    var pct = 8 + ((current - 3) / 6) * 77;
+    if (fillEl) fillEl.style.width = pct + '%';
+    if (current > 3) setTimeout(checkStock, 1000);
+  }
+  setTimeout(function() {
+    if (fillEl) fillEl.style.width = '85%';
+    setTimeout(checkStock, 1000);
+  }, 600);
+
+  // CTAs: los enlaces ya llevan al tope sin JS; esto solo suaviza el scroll
+  var ctaIds = ['lp-cta-tabla','lp-cta-urgencia','lp-cta-resenas','lp-cta-final'];
+  ctaIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  // ANIMACIONES: revelado al hacer scroll
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (lpRoot && 'IntersectionObserver' in window && !reduceMotion) {
+    lpRoot.classList.add('san-anim');
+    var revealSel = '.san-hero-media, .san-h2, .san-pain-item, ' +
+      '.san-benefit-card, .san-include-card, .san-table-wrap, .san-cta-center, ' +
+      '.san-context-media, .san-countdown, .san-review-card, .san-security-item, ' +
+      '.san-shipping-card, .san-faq-item, .san-payment-logos, .san-final-title, .san-final-sub';
+    var revealEls = Array.prototype.slice.call(lpRoot.querySelectorAll(revealSel));
+    var heroContent = lpRoot.querySelector('.san-hero-content');
+    if (heroContent) {
+      revealEls = revealEls.concat(Array.prototype.slice.call(heroContent.children));
+    }
+    revealEls.forEach(function(el) {
+      el.classList.add('san-reveal');
+    });
+    revealEls.forEach(function(el) {
+      // Escalona la entrada según la posición entre sus hermanos animados
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function(c) {
+        return c.classList && c.classList.contains('san-reveal');
+      });
+      el.style.setProperty('--san-delay', Math.min(sibs.indexOf(el) * 90, 540) + 'ms');
+      // Al terminar la entrada se limpia la clase para no interferir
+      // con los efectos hover de las tarjetas
+      el.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName === 'opacity') {
+          el.classList.remove('san-reveal', 'is-in');
+          el.style.removeProperty('--san-delay');
+          el.removeEventListener('transitionend', handler);
+        }
+      });
+    });
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el) { io.observe(el); });
+  }
+
+})();
+</script>
