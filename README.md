@@ -28,22 +28,24 @@ Landing-Tiendanube/
 
 ## 🛏️ Productos (carpeta `landings/`)
 
+Los archivos están nombrados por **medidas** para identificarlos rápido.
+
 | Archivo | Producto | Precio |
 |---|---|---|
-| `cama-moises-negra.html` | Cama Moisés negra (lona tracker + peluche negro, 80x50) | $70.000 → $55.000 |
-| `cama-moises-beige.html` | Cama Moisés peluche beige (80x50) | $70.000 → $55.000 |
-| `cama-moises-alaska.html` | Moisés Alaska 57x57, interior gris oscuro | $100.000 → $40.000 |
-| `cama-moises-alaska-beige.html` | Moisés Alaska 57x57, interior beige | $100.000 → $40.000 |
-| `cama-moises-alaska-grande.html` | Moisés Alaska 80x60, interior beige | $200.000 → $75.000 |
-| `cama-moises-alaska-grande-gris.html` | Moisés Alaska 80x60, interior gris oscuro | $200.000 → $75.000 |
-| `cama-puff-gris.html` | Cama puff redonda 60 cm, pelo gris | $80.000 → $50.000 |
-| `cama-puff-beige.html` | Cama puff redonda 60 cm, pelo beige | $80.000 → $50.000 |
-| `cama-puff-nordica-xl.html` | Puff nórdica XL 100x100, beige | $200.000 → $100.000 |
-| `cama-puff-nordica-xl-gris.html` | Puff nórdica XL 100x100, gris | $200.000 → $100.000 |
-| `cama-colchoneta-negra.html` | Colchoneta 80x50x15, microfibra negra | $150.000 → $65.000 |
-| `cama-colchoneta-beige.html` | Colchoneta 80x50x15, microfibra beige | $150.000 → $65.000 |
-| `rascador-multinivel-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
-| `rascador-multinivel-alfombra-marron.html` | Rascador multi-nivel alfombra marrón | $200.000 → $160.000 |
+| `80x50-moises-negra.html` | Cama Moisés negra (lona tracker + peluche negro), 80x50 | $70.000 → $55.000 |
+| `80x50-moises-beige.html` | Cama Moisés peluche beige, 80x50 | $70.000 → $55.000 |
+| `57x57-alaska-gris.html` | Moisés Alaska 57x57x25, interior gris oscuro | $100.000 → $40.000 |
+| `57x57-alaska-beige.html` | Moisés Alaska 57x57x25, interior beige | $100.000 → $40.000 |
+| `80x60-alaska-beige.html` | Moisés Alaska 80x60x25, interior beige | $200.000 → $75.000 |
+| `80x60-alaska-gris.html` | Moisés Alaska 80x60x25, interior gris oscuro | $200.000 → $75.000 |
+| `60cm-puff-gris.html` | Cama puff redonda 60 cm, pelo gris | $80.000 → $50.000 |
+| `60cm-puff-beige.html` | Cama puff redonda 60 cm, pelo beige | $80.000 → $50.000 |
+| `100x100-nordica-beige.html` | Puff nórdica XL 100x100x20, beige | $200.000 → $100.000 |
+| `100x100-nordica-gris.html` | Puff nórdica XL 100x100x20, gris | $200.000 → $100.000 |
+| `80x50x15-colchoneta-negra.html` | Colchoneta 80x50x15, microfibra negra | $150.000 → $65.000 |
+| `80x50x15-colchoneta-beige.html` | Colchoneta 80x50x15, microfibra beige | $150.000 → $65.000 |
+| `rascador-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
+| `rascador-alfombra-marron.html` | Rascador multi-nivel alfombra marrón | $200.000 → $160.000 |
 
 ## 🎨 Características comunes de todas las landings
 
