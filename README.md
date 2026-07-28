@@ -32,8 +32,8 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 
 | Archivo | Producto | Precio |
 |---|---|---|
-| `80x60-moises-negra.html` | Cama Moisés negra (lona tracker + peluche negro), 80x60 | $70.000 → $55.000 |
-| `80x60-moises-beige.html` | Cama Moisés peluche beige, 80x60 | $70.000 → $55.000 |
+| `80x50-moises-negra.html` | Cama Moisés negra (lona tracker + peluche negro), 80x50 | $70.000 → $55.000 |
+| `80x50-moises-beige.html` | Cama Moisés peluche beige, 80x50 | $70.000 → $55.000 |
 | `57x57-alaska-gris.html` | Moisés Alaska 57x57x25, interior gris oscuro | $100.000 → $40.000 |
 | `57x57-alaska-beige.html` | Moisés Alaska 57x57x25, interior beige | $100.000 → $40.000 |
 | `80x60-alaska-beige.html` | Moisés Alaska 80x60x25, interior beige | $200.000 → $75.000 |
