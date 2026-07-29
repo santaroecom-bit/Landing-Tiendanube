@@ -32,8 +32,6 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 
 | Archivo | Producto | Precio |
 |---|---|---|
-| `80x50-moises-negra.html` | Cama Moisés negra (lona tracker + peluche negro), 80x50 | $70.000 → $55.000 |
-| `80x50-moises-beige.html` | Cama Moisés peluche beige, 80x50 | $70.000 → $55.000 |
 | `57x57-alaska-gris.html` | Moisés Alaska 57x57x25, interior gris oscuro | $100.000 → $40.000 |
 | `57x57-alaska-beige.html` | Moisés Alaska 57x57x25, interior beige | $100.000 → $40.000 |
 | `80x60-alaska-beige.html` | Moisés Alaska 80x60x25, interior beige | $200.000 → $75.000 |
@@ -44,6 +42,8 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 | `100x100-nordica-gris.html` | Puff nórdica XL 100x100x20, gris | $200.000 → $100.000 |
 | `80x50x15-colchoneta-negra.html` | Colchoneta 80x50x15, microfibra negra | $150.000 → $65.000 |
 | `80x50x15-colchoneta-beige.html` | Colchoneta 80x50x15, microfibra beige | $150.000 → $65.000 |
+| `100x90x15-colchoneta-negra.html` | Colchoneta 100x90x15, microfibra negra (perros grandes) | $186.000 → $93.000 |
+| `100x90x15-colchoneta-beige.html` | Colchoneta 100x90x15, microfibra beige (perros grandes) | $186.000 → $93.000 |
 | `rascador-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
 | `rascador-alfombra-marron.html` | Rascador multi-nivel alfombra marrón | $200.000 → $160.000 |
 
