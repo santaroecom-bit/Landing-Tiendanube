@@ -1,0 +1,888 @@
+<title>Sántaro · Mapa de creativos Meta Ads</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ground:      #FAF5EC;
+    --ground-2:    #F3EADA;
+    --card:        #FFFDF8;
+    --ink:         #2B1E17;
+    --ink-2:       #6A574A;
+    --ink-3:       #93816F;
+    --rule:        #E2D5C0;
+    --rule-2:      #CDBBA0;
+    --brand:       #5C4033;
+    --gold:        #B78A3C;
+    --gold-soft:   #EFE0C2;
+    --a-ps:        #A9583A;
+    --a-edu:       #5E7150;
+    --a-test:      #6E5C8C;
+    --a-comp:      #446579;
+    --a-urg:       #B0791F;
+    --shadow:      0 1px 2px rgba(43,30,23,.05), 0 8px 24px -16px rgba(43,30,23,.25);
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', 'URW Palladio L', Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --ground:    #17110D;
+      --ground-2:  #1F1712;
+      --card:      #221A14;
+      --ink:       #F0E5D6;
+      --ink-2:     #BCA893;
+      --ink-3:     #907C68;
+      --rule:      #35281F;
+      --rule-2:    #4A3829;
+      --brand:     #D9BE9B;
+      --gold:      #D6AC69;
+      --gold-soft: #3A2C18;
+      --a-ps:      #D98A67;
+      --a-edu:     #96AE84;
+      --a-test:    #A992CC;
+      --a-comp:    #7BA3BC;
+      --a-urg:     #DCA845;
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:    #17110D;
+    --ground-2:  #1F1712;
+    --card:      #221A14;
+    --ink:       #F0E5D6;
+    --ink-2:     #BCA893;
+    --ink-3:     #907C68;
+    --rule:      #35281F;
+    --rule-2:    #4A3829;
+    --brand:     #D9BE9B;
+    --gold:      #D6AC69;
+    --gold-soft: #3A2C18;
+    --a-ps:      #D98A67;
+    --a-edu:     #96AE84;
+    --a-test:    #A992CC;
+    --a-comp:    #7BA3BC;
+    --a-urg:     #DCA845;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --ground:    #FAF5EC;
+    --ground-2:  #F3EADA;
+    --card:      #FFFDF8;
+    --ink:       #2B1E17;
+    --ink-2:     #6A574A;
+    --ink-3:     #93816F;
+    --rule:      #E2D5C0;
+    --rule-2:    #CDBBA0;
+    --brand:     #5C4033;
+    --gold:      #B78A3C;
+    --gold-soft: #EFE0C2;
+    --a-ps:      #A9583A;
+    --a-edu:     #5E7150;
+    --a-test:    #6E5C8C;
+    --a-comp:    #446579;
+    --a-urg:     #B0791F;
+    --shadow:    0 1px 2px rgba(43,30,23,.05), 0 8px 24px -16px rgba(43,30,23,.25);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--gold-soft); color: var(--ink); }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-in {
+    max-width: 1120px; margin: 0 auto; padding: 10px 28px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .wordmark {
+    font-family: var(--serif);
+    font-size: 17px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--brand); white-space: nowrap;
+  }
+  .topnav { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; }
+  .topnav a {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+    text-decoration: none; color: var(--ink-2);
+    padding: 4px 9px; border-radius: 999px; border: 1px solid transparent;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .topnav a:hover { color: var(--ink); background: var(--ground-2); border-color: var(--rule); }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 76px 0 40px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold); margin: 0 0 20px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(38px, 6.2vw, 68px); line-height: 1.02;
+    letter-spacing: -.02em; margin: 0 0 22px; text-wrap: balance;
+    max-width: 15ch;
+  }
+  h1 em { font-style: italic; color: var(--brand); }
+  .dek {
+    font-size: 18px; line-height: 1.62; color: var(--ink-2);
+    max-width: 60ch; margin: 0 0 12px;
+  }
+  .dek strong { color: var(--ink); font-weight: 600; }
+  .meta-line {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-3);
+    letter-spacing: .04em; margin-top: 26px;
+  }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--rule); border: 1px solid var(--rule); margin: 44px 0 0; }
+  .stat { background: var(--ground); padding: 20px 18px; }
+  .stat b { display: block; font-family: var(--serif); font-size: 40px;
+    line-height: 1; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .stat span { display: block; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); margin-top: 9px; }
+
+  /* ---------- sections ---------- */
+  section { padding: 64px 0; border-top: 1px solid var(--rule); }
+  section:first-of-type { border-top: none; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 34px; flex-wrap: wrap; }
+  .sec-num { font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    color: var(--gold); text-transform: uppercase; }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.12; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+  .sec-sub { color: var(--ink-2); max-width: 62ch; margin: -18px 0 34px; }
+
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 22px; margin: 0 0 8px; letter-spacing: -.01em; }
+
+  /* ---------- principios ---------- */
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 26px 34px; }
+  .principle p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .principle h4 { font-family: var(--sans); font-size: 14px; font-weight: 650; margin: 0 0 6px;
+    letter-spacing: -.005em; display: flex; gap: 9px; align-items: baseline; }
+  .principle h4 i { font-family: var(--mono); font-style: normal; font-size: 11px;
+    color: var(--gold); letter-spacing: .05em; }
+
+  .callout { margin-top: 40px; border: 1px solid var(--rule-2); background: var(--card);
+    padding: 26px 28px; display: grid; gap: 14px; }
+  .callout-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--gold); }
+  .code-block { font-family: var(--mono); font-size: 13.5px; background: var(--ground-2);
+    border: 1px solid var(--rule); padding: 14px 16px; overflow-x: auto; white-space: pre; line-height: 1.7; }
+  .callout p { margin: 0; color: var(--ink-2); font-size: 15px; max-width: 70ch; }
+
+  .rules { margin-top: 28px; border-left: 3px solid var(--gold); padding: 4px 0 4px 22px;
+    display: grid; gap: 12px; }
+  .rules p { margin: 0; font-size: 15px; color: var(--ink-2); max-width: 72ch; }
+  .rules strong { color: var(--ink); }
+
+  /* ---------- tables ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px; }
+  th { text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 400;
+    padding: 12px 16px; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); }
+  tr:last-child td { border-bottom: none; }
+  td.k { color: var(--ink); font-weight: 600; }
+  td.mono { font-family: var(--mono); font-size: 12px; color: var(--ink); white-space: nowrap; }
+
+  /* ---------- persona ---------- */
+  .persona { scroll-margin-top: 74px; }
+  .persona-head { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap;
+    padding-bottom: 22px; border-bottom: 2px solid var(--ink); margin-bottom: 30px; }
+  .persona-id { font-family: var(--mono); font-size: 13px; letter-spacing: .1em;
+    color: var(--ground); background: var(--brand); padding: 5px 10px; margin-top: 8px; }
+  :root[data-theme="dark"] .persona-id { color: #17110D; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .persona-id { color: #17110D; } }
+  .persona-title { flex: 1 1 320px; }
+  .persona-title h2 { margin: 0 0 4px; }
+  .persona-title .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3); }
+  .persona-anchor { font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--gold); align-self: flex-end; text-align: right; }
+
+  .ficha { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 46px; }
+  .ficha > div { background: var(--card); padding: 20px; }
+  .ficha dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
+  .ficha dd { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.58; }
+
+  .dolor { margin-bottom: 48px; }
+  .dolor-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--rule-2); }
+  .dolor-id { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--gold); }
+  .dolor-head h3 { margin: 0; font-size: 20px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(288px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--rule);
+    display: flex; flex-direction: column; box-shadow: var(--shadow); }
+  .card-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 12px 18px; border-bottom: 1px solid var(--rule); }
+  .cid { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .05em; }
+  .fmark { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    border: 1px solid var(--rule-2); color: var(--ink-2); padding: 2px 7px; border-radius: 2px; }
+  .angle { display: inline-flex; align-items: center; gap: 6px; margin-left: auto;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .flag { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--gold-soft); color: var(--gold); padding: 3px 7px; }
+  .card-body { padding: 18px; display: grid; gap: 16px; }
+  .slot-label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .17em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .stage { font-size: 13px; color: var(--ink-3); font-style: italic; display: block; margin-bottom: 6px; }
+  .hook { font-family: var(--serif); font-size: 20px; line-height: 1.24; letter-spacing: -.01em;
+    color: var(--ink); text-wrap: pretty; }
+  .msg { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+  .note { font-size: 12.5px; color: var(--ink-3); border-left: 2px solid var(--rule-2);
+    padding-left: 10px; line-height: 1.5; }
+  .cta { margin-top: auto; padding: 13px 18px; border-top: 1px solid var(--rule);
+    background: var(--ground-2); font-size: 13.5px; color: var(--ink); display: flex; gap: 9px; }
+  .cta::before { content: "→"; color: var(--gold); }
+
+  /* ---------- filtros + tabla resumen ---------- */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+  .fgroup { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .fgroup > span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-3); margin-right: 2px; }
+  .chip { font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    padding: 5px 11px; border: 1px solid var(--rule-2); background: transparent;
+    color: var(--ink-2); cursor: pointer; border-radius: 999px;
+    transition: background .15s, color .15s, border-color .15s; }
+  .chip:hover { border-color: var(--ink-3); color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--ground); }
+  :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #17110D; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #17110D; } }
+  .count { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-left: auto; }
+
+  .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+  .bar-set h4 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 400; margin: 0 0 16px; }
+  .bar-row { display: grid; grid-template-columns: 118px 1fr 28px; align-items: center;
+    gap: 12px; margin-bottom: 9px; font-size: 13px; }
+  .bar-track { height: 8px; background: var(--ground-2); border: 1px solid var(--rule); }
+  .bar-fill { height: 100%; background: var(--brand); }
+  .bar-row b { font-family: var(--mono); font-size: 12px; font-weight: 400;
+    text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+
+  /* ---------- tandas ---------- */
+  .tandas { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .tanda { background: var(--card); padding: 26px 28px;
+    display: grid; grid-template-columns: 58px 1fr; gap: 24px; align-items: start; }
+  .tanda-n { font-family: var(--serif); font-size: 40px; line-height: .9; color: var(--gold);
+    font-variant-numeric: tabular-nums; }
+  .tanda h4 { font-family: var(--sans); font-size: 15px; font-weight: 650; margin: 0 0 8px; }
+  .tanda p { margin: 0 0 12px; color: var(--ink-2); font-size: 14.5px; max-width: 68ch; }
+  .tanda p:last-child { margin-bottom: 0; }
+  .ids { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ids code { font-family: var(--mono); font-size: 11px; background: var(--ground-2);
+    border: 1px solid var(--rule); padding: 3px 8px; color: var(--ink-2); }
+
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+  .checklist li { border-bottom: 1px solid var(--rule); }
+  .checklist label { display: flex; gap: 13px; align-items: flex-start; padding: 13px 4px;
+    cursor: pointer; font-size: 14.5px; color: var(--ink-2); }
+  .checklist input { accent-color: var(--gold); margin-top: 4px; flex: none; width: 15px; height: 15px; }
+  .checklist input:checked + span { color: var(--ink-3); text-decoration: line-through; }
+
+  .open-list { list-style: none; padding: 0; margin: 0; counter-reset: q; display: grid; gap: 20px; }
+  .open-list li { counter-increment: q; display: grid; grid-template-columns: 34px 1fr; gap: 16px; }
+  .open-list li::before { content: counter(q, decimal-leading-zero);
+    font-family: var(--mono); font-size: 12px; color: var(--gold); padding-top: 3px; }
+  .open-list p { margin: 0; color: var(--ink-2); font-size: 14.5px; max-width: 72ch; }
+  .open-list strong { color: var(--ink); font-weight: 600; }
+  .open-list code { font-family: var(--mono); font-size: 12px; background: var(--ground-2);
+    border: 1px solid var(--rule); padding: 1px 6px; }
+
+  footer { border-top: 1px solid var(--rule); padding: 40px 0 64px; color: var(--ink-3);
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; line-height: 1.9; }
+
+  @media (max-width: 780px) {
+    .wrap, .topbar-in { padding-left: 20px; padding-right: 20px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .bars { grid-template-columns: 1fr; gap: 32px; }
+    .topnav { display: none; }
+    header.hero { padding-top: 48px; }
+    .tanda { grid-template-columns: 1fr; gap: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+  html { scroll-behavior: smooth; }
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="wordmark">Sántaro</div>
+    <nav class="topnav" id="topnav"></nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Mapa de producción · Meta Ads · Algoritmo Andrómeda</p>
+    <h1>El creativo <em>es</em> el targeting.</h1>
+    <p class="dek">Andrómeda no necesita que le digas a quién mostrarle el anuncio: necesita que el anuncio <strong>diga solo a quién le habla</strong>. El modelo lee la imagen, el audio, el texto en pantalla y el copy, y los cruza con el comportamiento de cada usuario.</p>
+    <p class="dek">Por eso este documento no arma públicos. Arma <strong>señales</strong>: cinco personas con dolores concretos, y treinta y nueve creativos que las nombran de forma explícita en los primeros tres segundos.</p>
+    <p class="meta-line">v1 · 2026-08-02 · santaropetshop.mitiendanube.com · Tu casa se ve más linda. Tu mascota vive mejor.</p>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>Buyer personas</span></div>
+      <div class="stat"><b>12</b><span>Puntos de dolor</span></div>
+      <div class="stat"><b>39</b><span>Creativos</span></div>
+      <div class="stat"><b>4</b><span>Tandas de producción</span></div>
+    </div>
+  </header>
+
+  <section id="como-se-lee">
+    <div class="sec-head"><span class="sec-num">Marco</span><h2>Cómo se lee este mapa</h2></div>
+    <div class="principles">
+      <div class="principle"><h4><i>01</i> Público amplio, creativo específico</h4><p>Argentina, 25-60, sin intereses o con intereses muy amplios. La segmentación la hace el contenido, no el conjunto de anuncios.</p></div>
+      <div class="principle"><h4><i>02</i> Señales duras en 3 segundos</h4><p>Cada pieza muestra y nombra el tamaño y la edad del perro, el tipo de vivienda, el objeto de conflicto y el estilo de la casa. Si aparece un labrador de 9 años y se dice “perro grande y viejo”, Meta ya sabe a quién buscar.</p></div>
+      <div class="principle"><h4><i>03</i> Diversidad antes que perfección</h4><p>Andrómeda explora. Necesita variedad real de personas, dolores, ángulos y formatos para encontrar bolsones de audiencia. Diez creativos parecidos son un solo creativo.</p></div>
+      <div class="principle"><h4><i>04</i> Un dolor por creativo</h4><p>Nada de anuncios que dicen todo. Un dolor, una promesa, un llamado a la acción.</p></div>
+      <div class="principle"><h4><i>05</i> Alineación triple</h4><p>Hook hablado, hook visual y texto en pantalla dicen lo mismo. Muchos ven sin audio; muchos otros solo escuchan.</p></div>
+      <div class="principle"><h4><i>06</i> Estructura de cuenta</h4><p>Una campaña de Ventas con público amplio. Uno o dos conjuntos de anuncios como máximo. Entre 8 y 12 creativos activos cubriendo al menos 3 personas, con rotación quincenal.</p></div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Nomenclatura obligatoria de cada anuncio</div>
+      <div class="code-block">P{persona}-D{dolor}-C{creativo}_{formato}_{ángulo}
+Ejemplo:  P2-D1-C2_imagen_comparacion</div>
+      <p>Sin esto no vas a poder leer los resultados por persona ni por dolor, que es la única lectura que importa en Andrómeda: no ganó “el video 4”, ganó “el dolor de talle en perro grande”. Cuando un dolor gana, se producen 3 creativos nuevos de ese mismo dolor con formatos distintos.</p>
+    </div>
+
+    <div class="rules">
+      <div class="callout-label">Reglas de honestidad · no negociables</div>
+      <p><strong>Testimoniales y UGC:</strong> solo con clientes reales, mensajes reales de WhatsApp o material propio. Si se graba con guion propio, se rotula como demostración. Nada de reseñas inventadas.</p>
+      <p><strong>Salud:</strong> no prometer beneficios terapéuticos (artrosis, displasia, dolor articular). Se habla de confort, apoyo y abrigo, nunca de tratamiento. Meta rechaza anuncios por esto.</p>
+      <p><strong>Urgencia:</strong> los ángulos de urgencia usan promociones reales y vigentes. Si la promo no está vigente, el creativo se pausa.</p>
+      <p><strong>Datos sin verificar:</strong> marcados como <em>(A confirmar)</em> en cada creativo. Se validan o se reemplazan antes de producir.</p>
+    </div>
+  </section>
+
+  <section id="activos">
+    <div class="sec-head"><span class="sec-num">Insumos</span><h2>Activos que aparecen en los creativos</h2></div>
+    <p class="sec-sub">Catálogo real de la tienda y qué señal de persona activa cada producto.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Producto</th><th>Talles y variantes</th><th>Señal de persona que activa</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Cama Moisés Nido Nórdico</td><td>60cm y 100cm · gris y beige</td><td>Perro chico friolento (60cm) · deco y perro mediano-grande (100cm)</td></tr>
+          <tr><td class="k">Cama Moisés Alaska</td><td>57×57cm y 80×60cm · gris oscuro y beige</td><td>Contención, perro ansioso, funda removible lavable</td></tr>
+          <tr><td class="k">Colchón Cama Perro</td><td>L 80×50×15 · XL 100×90×15 · negro y beige</td><td>Perro grande y senior, estirado, piso frío</td></tr>
+          <tr><td class="k">Rascador Multi-Nivel</td><td>Peluche beige · alfombra marrón</td><td>Gato, sillón destrozado, deco de departamento</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rules" style="margin-top:32px">
+      <div class="callout-label">Ganchos de oferta reales disponibles</div>
+      <p>Envío gratis a todo el país sin mínimo de compra · 3 cuotas sin interés con todas las tarjetas · entrega el mismo día en AMBA · guía de talles oficial · funda removible lavable a máquina en la línea Alaska · atención por WhatsApp.</p>
+      <p><strong>Guía visual:</strong> fondo beige y crema cálido, luz de ventana suave y diagonal, texto en marrón cálido, acentos dorados. Sin collages, una escena por pieza. Las tomas de casa real rinden más que el fondo blanco de e-commerce, porque le dan a Meta contexto de <em>hogar</em> y no de <em>producto</em>.</p>
+    </div>
+  </section>
+
+  <div id="personas"></div>
+
+  <section id="resumen">
+    <div class="sec-head"><span class="sec-num">Resumen</span><h2>Mapa de producción</h2></div>
+    <p class="sec-sub">Los 39 creativos, ordenados por identificador de anuncio para cargar directo en Meta. Filtrá para armar la orden de trabajo de cada tanda.</p>
+    <div class="filters" id="filters"></div>
+    <div class="table-scroll">
+      <table id="summary">
+        <thead><tr><th>ID de anuncio</th><th>Persona</th><th>Dolor</th><th>Formato</th><th>Ángulo</th><th>Producto ancla</th></tr></thead>
+        <tbody id="summary-body"></tbody>
+      </table>
+    </div>
+    <div class="bars">
+      <div class="bar-set"><h4>Distribución por formato</h4><div id="bars-formato"></div></div>
+      <div class="bar-set"><h4>Distribución por ángulo</h4><div id="bars-angulo"></div></div>
+    </div>
+  </section>
+
+  <section id="produccion">
+    <div class="sec-head"><span class="sec-num">Ejecución</span><h2>Orden de producción</h2></div>
+    <p class="sec-sub">No producir los 39 de una. Andrómeda necesita señales limpias, y 39 creativos simultáneos con presupuesto chico no le dejan aprender nada.</p>
+    <div class="tandas">
+      <div class="tanda">
+        <div class="tanda-n">1</div>
+        <div>
+          <h4>Validación de persona · 8 creativos · 2 semanas</h4>
+          <p>Un creativo por dolor principal de cada persona, priorizando video corto e imagen, que son los más rápidos de producir. La lectura es cuál <em>persona</em> convierte, no cuál video convierte.</p>
+          <div class="ids" id="tanda1-ids"></div>
+        </div>
+      </div>
+      <div class="tanda">
+        <div class="tanda-n">2</div>
+        <div>
+          <h4>Profundización · 9 a 12 creativos</h4>
+          <p>Se producen los 3 creativos completos de cada dolor ganador de la Tanda 1, más los carruseles educativos de esa persona. Se congela todo lo que no gastó.</p>
+        </div>
+      </div>
+      <div class="tanda">
+        <div class="tanda-n">3</div>
+        <div>
+          <h4>UGC · 9 creativos</h4>
+          <p>Recién acá, con clientes reales que ya compraron. Se los contacta por WhatsApp y se les pide video vertical casero con el producto en uso. El UGC rinde más cuando ya sabés qué dolor comunicar, y en Tanda 3 ya lo sabés.</p>
+        </div>
+      </div>
+      <div class="tanda">
+        <div class="tanda-n">4</div>
+        <div>
+          <h4>Urgencia y estacionalidad · 5 creativos</h4>
+          <p>Se activan solo con promoción vigente confirmada. Los estacionales de frío se reservan para el ciclo de otoño-invierno.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:52px 0 6px">Checklist antes de publicar cada creativo</h3>
+    <ul class="checklist" id="checklist"></ul>
+  </section>
+
+  <section id="abiertos">
+    <div class="sec-head"><span class="sec-num">Pendiente</span><h2>Puntos abiertos a confirmar</h2></div>
+    <p class="sec-sub">Cinco definiciones bloquean piezas concretas. Validarlas antes de entrar a producción.</p>
+    <ul class="open-list">
+      <li><p><strong>Rangos de peso por talle.</strong> L hasta ~25kg y XL de 25kg en adelante, usados en <code>P2-D1-C3</code>. Validar contra la guía de talles oficial de la tienda.</p></li>
+      <li><p><strong>El dato del 60% del peso en tres puntos de apoyo</strong> en perros seniors, usado en <code>P2-D2-C2</code>. Si no se valida con fuente veterinaria, usar la versión alternativa ya redactada en ese creativo.</p></li>
+      <li><p><strong>Vigencia y fechas de corte de los descuentos.</strong> Afecta a los 5 creativos de urgencia.</p></li>
+      <li><p><strong>Antigüedad verificable de compra</strong> para el testimonial de durabilidad <code>P2-D3-C3</code>.</p></li>
+      <li><p><strong>Base de clientes disponibles para UGC.</strong> Se necesitan al menos 4 clientes con producto en uso para cubrir la Tanda 3.</p></li>
+    </ul>
+  </section>
+
+  <footer>
+    Sántaro Pet Shop · Mapa de creativos Meta Ads v1 · 2026-08-02<br>
+    5 buyer personas · 12 puntos de dolor · 39 creativos · 4 tandas de producción
+  </footer>
+</div>
+
+<script>
+const FORMATOS = {
+  video:    { label: 'Video corto', mark: 'VID' },
+  imagen:   { label: 'Imagen',      mark: 'IMG' },
+  carrusel: { label: 'Carrusel',    mark: 'CAR' },
+  ugc:      { label: 'UGC',         mark: 'UGC' }
+};
+const ANGULOS = {
+  ps:   { label: 'Problema-solución', color: 'var(--a-ps)' },
+  edu:  { label: 'Educativo',         color: 'var(--a-edu)' },
+  test: { label: 'Testimonial',       color: 'var(--a-test)' },
+  comp: { label: 'Comparación',       color: 'var(--a-comp)' },
+  urg:  { label: 'Urgencia',          color: 'var(--a-urg)' }
+};
+
+const PERSONAS = [
+{
+  id: 'P1', nombre: 'Caro, la que ya falló', tag: 'Compró una cama y el perro no la usa',
+  perfil: '32 a 45 años. Vive en departamento o casa chica, sola o en pareja. Tiene un perro mediano que es parte de la familia. Ya compró una cama antes —barata, de pet shop o de Mercado Libre— y el perro la ignoró desde el primer día. Es escéptica, compara, lee reseñas antes de comprar y le molesta profundamente sentirse estafada. Compra por WhatsApp si tiene dudas.',
+  dolor: 'Gastó plata en una cama que hoy es un adorno en un rincón, y su perro sigue durmiendo donde no debería.',
+  desea: 'Comprar una sola vez algo que el perro elija solo, sin tener que convencerlo ni entrenarlo.',
+  tono: 'Directo, empático, sin vender humo. Le hablás de igual a igual y le sacás la culpa de encima: no es tu perro, es la cama.',
+  dolores: [
+    { n: 1, titulo: 'Le compré una cama y quedó de adorno', corto: 'Le compró una cama y quedó de adorno', creativos: [
+      { n:1, f:'video', a:'ps', tanda1:true, prod:'Moisés Alaska', dur:'15-20s, vertical',
+        stage:'Mano levantando una cama plana vacía, impecable, sin una sola marca de uso.',
+        hook:'Si tu perro no usa la cama que le compraste, el problema no es tu perro.',
+        msg:'Los perros no buscan una superficie, buscan un borde. Las camas planas no dan dónde apoyar la cabeza ni sensación de refugio, y por eso terminan vacías. El Moisés Alaska tiene borde alto y contención en 360°: el perro se mete solo el primer día.',
+        cta:'Conocé la Colección Moisés — envío gratis a todo el país.' },
+      { n:2, f:'carrusel', a:'edu', prod:'Moisés Alaska', dur:'5 placas',
+        hook:'3 razones por las que tu perro rechaza su cama (y ninguna es capricho)',
+        msg:'Placa 2, no tiene borde donde apoyar la cabeza. Placa 3, es demasiado dura y el peso se siente en las articulaciones. Placa 4, es más chica de lo que dice la etiqueta y el perro queda colgando. Placa 5, la cama que sí funciona: borde alto, relleno que no se aplasta, talle medido en centímetros reales.',
+        cta:'Mirá la guía de talles y elegí la que sí va a usar.' },
+      { n:3, f:'ugc', a:'test', prod:'Moisés Alaska', dur:'20-30s',
+        nota:'Requiere cliente real. No producir con guion actuado.',
+        hook:'Esta es la tercera cama que le compro. Es la primera que usa.',
+        msg:'Relato en primera persona del recorrido: las dos camas anteriores que quedaron tiradas, la desconfianza al comprar de nuevo, y el momento en que el perro se metió solo. Cierra con la cama en uso, con el perro dormido adentro, en el living de la persona.',
+        cta:'Buscá “Colección Moisés” en Sántaro. 3 cuotas sin interés.' }
+    ]},
+    { n: 2, titulo: 'Sigue durmiendo en mi sillón y en mi cama', corto: 'Sigue durmiendo en el sillón', creativos: [
+      { n:1, f:'imagen', a:'comp', tanda1:true, prod:'Moisés Alaska', dur:'estática 4:5',
+        stage:'Split vertical. Izquierda: sillón con pelo, manta arrugada y hundida. Derecha: perro dormido dentro del moisés, junto a la ventana.',
+        hook:'Antes: mi sillón. Ahora: su cama.',
+        msg:'El perro no elige el sillón porque sea maleducado, lo elige porque es lo más blando y contenido de la casa. Dale algo mejor que el sillón y el sillón deja de ser tema.',
+        cta:'Recuperá tu sillón — Ver camas Sántaro.' },
+      { n:2, f:'ugc', a:'test', prod:'Moisés Alaska', dur:'15s',
+        nota:'Requiere cliente real.',
+        stage:'Persona sentada en el sillón, mostrando el asiento lleno de pelos.',
+        hook:'Dos años peleándome con él por el sillón. Se terminó en una semana.',
+        msg:'Testimonio de convivencia, no de producto: menos pelos en la ropa, dejó de discutir en pareja por quién lo bajaba del sillón, el perro empezó a irse solo a su cama a la noche.',
+        cta:'Escribinos por WhatsApp y te ayudamos a elegir el talle.' },
+      { n:3, f:'video', a:'urg', prod:'Colección Moisés', dur:'10-12s',
+        nota:'Validar vigencia de la promoción antes de publicar.',
+        hook:'La cama que le va a sacar el sillón está al 50%.',
+        msg:'Foco en la oferta real vigente: Colección Moisés con hasta 50% OFF, envío gratis a todo el país sin compra mínima y 3 cuotas sin interés. Cierre con el precio en pantalla y el perro entrando a la cama.',
+        cta:'Aprovechá el descuento antes de que vuelva a precio de lista.' }
+    ]},
+    { n: 3, titulo: 'Tengo miedo de volver a comprar y volver a errarle', corto: 'Miedo a errarle de nuevo', creativos: [
+      { n:1, f:'carrusel', a:'comp', prod:'Colección Moisés', dur:'4 placas',
+        hook:'Cama de $25.000 vs. cama Sántaro: la diferencia se ve al mes.',
+        msg:'Comparación honesta y visual, sin nombrar competidores. Relleno que se aplasta vs. relleno que recupera forma. Costura simple vs. costura reforzada. Talle “grande” que mide 60cm vs. talle publicado en centímetros reales. Funda cosida vs. funda removible lavable a máquina.',
+        cta:'Ver la Colección Moisés.' },
+      { n:2, f:'imagen', a:'edu', prod:'Guía de talles', dur:'estática con cinta métrica en cuadro',
+        hook:'Medí a tu perro antes de comprar. Te lleva 30 segundos.',
+        msg:'Cómo medir: de la nariz a la base de la cola, más 15-20cm de margen para que estire. Cada producto Sántaro publica medidas interiores y exteriores por separado, que es donde casi todas las marcas te confunden. Sin adivinar no hay devolución.',
+        cta:'Abrí la guía de talles oficial.' },
+      { n:3, f:'video', a:'ps', prod:'Moisés Alaska', dur:'20s, plano fijo de manos',
+        hook:'¿Y si se hace pis? ¿Y si le queda chica? ¿Y si no la usa?',
+        msg:'Las tres objeciones respondidas en orden, mostrando el producto: funda removible que va al lavarropas, guía de talles con medidas interiores y exteriores, y borde alto que hace que el perro se meta solo. Cierre con envío gratis y pago seguro.',
+        cta:'Comprá con envío gratis a todo el país.' }
+    ]}
+  ]
+},
+{
+  id: 'P2', nombre: 'Marcelo, el del perro grande y viejo', tag: 'No encuentra talle real ni durabilidad',
+  perfil: '40 a 60 años. Casa con patio, en el interior o en el conurbano. Labrador, ovejero, golden o mestizo grande de 8 años o más. El perro entró a la familia cuando los hijos eran chicos y hoy es “el viejo”. No compra por estética: compra por función. Le duele ver que el perro se levanta duro a la mañana y que ya no puede subirse al sillón. Compra en Mercado Libre, compara medidas, desconfía de los talles.',
+  dolor: 'Ninguna cama del mercado le queda bien a su perro, y las que entran se aplastan en un mes.',
+  desea: 'Que su perro duerma estirado, abrigado y a nivel del piso, y que la cama aguante el peso todo el año.',
+  tono: 'Concreto, con números y centímetros. Cero poesía. Respeto por el vínculo con un perro viejo: nunca lástima, siempre cuidado.',
+  dolores: [
+    { n:1, titulo:'No existe la cama del tamaño de mi perro', corto:'No existe la cama de su tamaño', creativos: [
+      { n:1, f:'video', a:'ps', tanda1:true, prod:'Colchón XL', dur:'15s',
+        stage:'Perro grande acostado en una cama chica, con la cabeza y las patas afuera.',
+        hook:'Tu perro no duerme mal. Duerme colgado.',
+        msg:'La mayoría de las camas “grandes” del mercado miden menos de 80cm y un perro grande necesita estirarse por completo. El Colchón XL mide 100×90×15cm reales, con 15cm de espesor para que el codo y la cadera no toquen el piso.',
+        cta:'Ver Colchón XL — 100×90cm reales.' },
+      { n:2, f:'imagen', a:'comp', prod:'Colchón XL', dur:'estática con medidas superpuestas',
+        stage:'Cinta métrica visible sobre el producto, con el perro adentro, estirado y con las cuatro patas dentro del colchón.',
+        hook:'Su “talle grande”: 70cm. Nuestro XL: 100×90cm.',
+        msg:'Las medidas publicadas en centímetros, no en adjetivos. Un perro de 30 kilos necesita al menos 90cm de largo útil; medí a tu perro de nariz a cola y sumale 20cm.',
+        cta:'Comparalo con la medida de tu perro.' },
+      { n:3, f:'carrusel', a:'edu', prod:'Guía de talles', dur:'5 placas',
+        nota:'Rangos de peso por talle: a confirmar antes de publicar.',
+        hook:'Guía de talles para perros grandes: cómo no volver a errarle.',
+        msg:'Placa 2, cómo medir: nariz a base de cola más 20cm. Placa 3, medida interior vs. exterior y por qué en las camas tipo moisés no son lo mismo. Placa 4, tabla por peso: L 80×50×15 hasta ~25kg, XL 100×90×15 de 25kg en adelante. Placa 5, qué talle le corresponde a un labrador, un ovejero y un gran danés.',
+        cta:'Abrí la guía de talles oficial de Sántaro.' }
+    ]},
+    { n:2, titulo:'Duerme en la cerámica fría y se levanta duro', corto:'Duerme en el piso frío', creativos: [
+      { n:1, f:'ugc', a:'test', prod:'Colchón XL', dur:'25-30s',
+        nota:'Cliente real con perro senior. No actuar. Sin mencionar patologías ni prometer mejoras médicas.',
+        hook:'Tiene 11 años y dormía en el piso porque ninguna cama le entraba.',
+        msg:'Relato del dueño: la escena de la mañana, el perro que ya no busca el sillón, la decisión de comprarle una cama que le entre de verdad. Cierra con el perro estirado en el XL.',
+        cta:'Ver Colchón L y XL — envío gratis.' },
+      { n:2, f:'video', a:'edu', prod:'Colchón L y XL', dur:'20s, voz en off',
+        nota:'Dato a confirmar. Si no se valida, usar: “Un perro viejo apoya casi todo su peso en tres puntos”.',
+        hook:'Un perro viejo apoya el 60% de su peso en tres puntos: codo, cadera y hombro.',
+        msg:'Por eso el espesor importa más que el tamaño. Con menos de 10cm de relleno, esos tres puntos tocan el piso. El colchón Sántaro tiene 15cm y exterior de microfibra que retiene el calor del cuerpo, para que el piso frío no lo despierte a las 4 de la mañana. Confort, no tratamiento.',
+        cta:'Elegí el espesor que su edad necesita.' },
+      { n:3, f:'imagen', a:'ps', tanda1:true, prod:'Colchón XL', dur:'foto ambiente, invierno, luz de ventana',
+        stage:'Perro grande y canoso dormido profundamente sobre el colchón beige, junto a un ventanal.',
+        hook:'A los 11, ya se ganó dormir bien.',
+        msg:'15cm de espesor, exterior de microfibra abrigada, 100×90cm para estirarse entero. La cama que le corresponde a un perro que ya hizo todo por vos.',
+        cta:'Ver Colchón XL.' }
+    ]},
+    { n:3, titulo:'Compro camas que se aplastan en un mes', corto:'Las camas se aplastan', creativos: [
+      { n:1, f:'video', a:'comp', prod:'Colchón L y XL', dur:'12-15s, plano cenital',
+        stage:'Mano hundiendo la palma en dos colchones lado a lado.',
+        hook:'Test de un segundo: apretá y soltá.',
+        msg:'Demostración pura, sin voz. Un colchón genérico queda hundido; el Sántaro recupera la forma al instante. El relleno es lo que separa una cama de 6 meses de una de 3 años.',
+        cta:'Ver Colchón L y XL.' },
+      { n:2, f:'carrusel', a:'edu', prod:'Colección Colchones', dur:'4 placas',
+        hook:'Por qué las camas de perro se aplastan (y cómo darte cuenta antes de comprar)',
+        msg:'Placa 2, relleno de retazos vs. relleno uniforme. Placa 3, densidad y espesor: por qué 15cm no es lo mismo que 8cm. Placa 4, costura y tela exterior: la microfibra resiste el arrastre de las uñas. Placa 5, qué mirar en cualquier ficha de producto antes de pagar.',
+        cta:'Ver la Colección Colchones.' },
+      { n:3, f:'ugc', a:'test', prod:'Colchón XL', dur:'20s',
+        nota:'Requiere cliente con antigüedad de compra verificable.',
+        hook:'Se la compré en invierno. Mirá cómo está hoy.',
+        msg:'Prueba de durabilidad en casa real, con un perro grande que la usa todos los días. La comparación es contra las camas anteriores del mismo dueño, no contra una marca.',
+        cta:'Comprá una vez. Ver Colchones Sántaro.' }
+    ]}
+  ]
+},
+{
+  id: 'P3', nombre: 'Sofía, la deco-first', tag: 'La cama del perro le arruina la casa',
+  perfil: '26 a 40 años. Departamento de 2 ambientes en CABA o zona norte, alquilado o propio. Paleta neutra, madera clara, plantas, mucho Pinterest e Instagram de deco. Su perro o gato es parte de su identidad y aparece en sus fotos. Elige objetos por cómo se ven, y le da un poco de vergüenza admitir que el accesorio más feo de su casa es la cama del perro. Paga más por diseño sin dudarlo.',
+  dolor: 'Todo lo que existe para mascotas es feo —plástico, estampado de huesitos, colores chillones— y le rompe la estética que construyó.',
+  desea: 'Un objeto que se vea tan bien como el resto de su casa y que además sea cómodo para su mascota. Que no tenga que elegir.',
+  tono: 'Cálido, editorial, aspiracional. Poco texto, mucha imagen. Es la persona donde más rinde la línea de marca: tu casa se ve más linda, tu mascota vive mejor.',
+  dolores: [
+    { n:1, titulo:'La cama del perro me arruina la decoración', corto:'La cama le arruina la deco', creativos: [
+      { n:1, f:'imagen', a:'comp', tanda1:true, prod:'Nido Nórdico', dur:'estática 4:5, foto editorial de ambiente',
+        stage:'Split del mismo living. Izquierda: cama de plástico azul con estampado, tirada al lado del sillón. Derecha: Nido Nórdico beige junto a la ventana, con una planta y una manta.',
+        hook:'Mismo living. Mismo perro. Otra casa.',
+        msg:'No hace falta esconder la cama de tu perro: hace falta una que combine. Nido Nórdico en gris o beige, tonos neutros pensados para convivir con madera, lino y crema.',
+        cta:'Ver Nido Nórdico — gris y beige.' },
+      { n:2, f:'video', a:'ps', prod:'Nido Nórdico', dur:'15s, recorrido de cámara lento',
+        stage:'Paneo lento por un living lindo que se frena de golpe sobre una cama de perro fea.',
+        hook:'Todo tu depto está pensado. Menos esto.',
+        msg:'La cama de tu mascota ocupa un metro cuadrado del ambiente donde recibís gente. Es un mueble, y merece elegirse como un mueble. Sántaro diseña accesorios que se integran a la deco en vez de esconderse.',
+        cta:'Elegí la tuya en Sántaro.' },
+      { n:3, f:'carrusel', a:'edu', prod:'Colección completa', dur:'5 placas, estilo mood board',
+        hook:'Cómo elegir la cama de tu perro según la paleta de tu casa.',
+        msg:'Placa 2, casa en tonos crema y madera clara → Nido Nórdico beige. Placa 3, casa con grises, negro y metal → Alaska gris oscuro. Placa 4, ambiente chico → Nido Nórdico 60cm que hace de puff visual. Placa 5, regla general: la cama tiene que repetir un tono que ya exista en el ambiente, nunca introducir uno nuevo.',
+        cta:'Ver la colección completa.' }
+    ]},
+    { n:2, titulo:'Escondo la cama cuando viene gente', corto:'Esconde la cama cuando viene gente', creativos: [
+      { n:1, f:'ugc', a:'test', prod:'Nido Nórdico', dur:'20s, vertical casero',
+        nota:'Requiere cliente real.',
+        hook:'Antes escondía la cama del perro atrás del sillón cuando venían visitas.',
+        msg:'Confesión honesta y liviana. Ahora queda en el living, a la vista, y la gente pregunta dónde la compró. El producto pasó de esconderse a ser tema de conversación.',
+        cta:'Buscá Sántaro en Instagram y mirá la colección.' },
+      { n:2, f:'video', a:'ps', tanda1:true, prod:'Nido Nórdico 100cm', dur:'12s, transición',
+        stage:'Mano arrastrando una cama fea para esconderla detrás del sillón, corte, transición.',
+        hook:'Dejá de esconderla.',
+        msg:'Un accesorio de mascota bien diseñado no se guarda: se ubica. Nido Nórdico funciona como puff visual en cualquier rincón del living.',
+        cta:'Ver Nido Nórdico 100cm.' },
+      { n:3, f:'carrusel', a:'comp', prod:'Nido Nórdico', dur:'4 placas, fotos de ambientes reales',
+        hook:'La misma cama en 4 casas distintas.',
+        msg:'El mismo Nido Nórdico beige integrado en cuatro ambientes con estilos diferentes: nórdico, industrial, boho y minimalista. Demostrar versatilidad en vez de afirmarla.',
+        cta:'Ver los dos colores disponibles.' }
+    ]},
+    { n:3, titulo:'En un depto chico se nota todo: el pelo, la mancha, el olor', corto:'Depto chico: pelo, mancha y olor', creativos: [
+      { n:1, f:'video', a:'edu', prod:'Moisés Alaska', dur:'15s, demo',
+        stage:'Manos sacando la funda de la cama y metiéndola en el lavarropas.',
+        hook:'Se saca, se lava, vuelve. Eso es todo.',
+        msg:'La línea Alaska tiene funda removible lavable a máquina. En un departamento chico, una cama que no se puede lavar es una cama que en tres meses tenés que tirar.',
+        cta:'Ver Cama Moisés Alaska.' },
+      { n:2, f:'imagen', a:'urg', prod:'Colección Moisés', dur:'estática, producto en ambiente + placa de oferta discreta',
+        nota:'Validar vigencia de la promoción.',
+        hook:'Que combine con tu casa no debería costar el doble. Hoy cuesta la mitad.',
+        msg:'Los descuentos vigentes de la colección con envío gratis a todo el país sin mínimo de compra y 3 cuotas sin interés. Estética premium a precio de cama común, mientras dure el stock de la temporada.',
+        cta:'Aprovechá el descuento — envío gratis.' },
+      { n:3, f:'ugc', a:'ps', prod:'Moisés Alaska', dur:'20s, casero',
+        nota:'Requiere cliente real.',
+        hook:'Vivo en 40 metros cuadrados con un perro. Esto fue lo que cambió todo.',
+        msg:'En poco espacio, cada objeto tiene que cumplir dos funciones: acá, cama del perro y elemento de deco. Además concentra el pelo en un solo lugar lavable en vez de repartirlo por el sillón.',
+        cta:'Ver camas Sántaro — entrega en el día en AMBA.' }
+    ]}
+  ]
+},
+{
+  id: 'P4', nombre: 'Juli, la gatera de departamento', tag: 'El gato le destroza el sillón',
+  perfil: '25 a 38 años. Departamento, uno o dos gatos, muchas veces adoptados. Sabe que su gato necesita rascar y no lo reta por eso, pero ya perdió el respaldo del sillón y una esquina de la alfombra. Investigó rascadores y todo lo que encontró es sisal beige con estampado de patitas o torres de colores que no puede poner en su living. Compra online, lee mucho, participa en grupos de adoptantes.',
+  dolor: 'Su gato le está destrozando los muebles, y los rascadores que existen son tan feos que no quiere ponerlos a la vista.',
+  desea: 'Un rascador que el gato realmente use y que ella pueda dejar en el living sin que le arruine el ambiente.',
+  tono: 'Cómplice, informado, nada culposo. Sabe de gatos: no le expliques lo básico como si no supiera, mostrale que vos también sabés.',
+  dolores: [
+    { n:1, titulo:'Mi gato me está destrozando el sillón', corto:'El gato destroza el sillón', creativos: [
+      { n:1, f:'video', a:'ps', tanda1:true, prod:'Rascador Multi-Nivel', dur:'15s',
+        stage:'Primer plano del respaldo del sillón deshilachado por las uñas.',
+        hook:'No lo hace para molestarte. Lo hace porque necesita hacerlo.',
+        msg:'El gato rasca para marcar territorio y afilar uñas, y siempre elige lo más alto y firme de la casa: por eso elige tu sillón. Un rascador multi-nivel macizo, ubicado cerca del lugar que ya rasca, redirige la conducta sin retos.',
+        cta:'Ver Rascador Multi-Nivel.' },
+      { n:2, f:'carrusel', a:'edu', prod:'Rascador Multi-Nivel', dur:'5 placas',
+        hook:'Tu gato no rasca el sillón por maldad. Rasca porque el rascador está mal puesto.',
+        msg:'Placa 2, tiene que estar cerca del lugar que ya elige, no en el rincón donde no molesta. Placa 3, tiene que ser más alto que su estiramiento completo. Placa 4, tiene que ser macizo: si se tambalea, no lo usa nunca más. Placa 5, tiene que ofrecer dos texturas —alfombra y peluche— porque cada gato prefiere una.',
+        cta:'Ver los dos modelos de rascador.' },
+      { n:3, f:'ugc', a:'test', prod:'Rascador Multi-Nivel', dur:'20s, casero',
+        nota:'Requiere cliente real con gato.',
+        hook:'Le puse el rascador al lado del sillón que estaba destrozando. Tardó un día.',
+        msg:'Relato real de la transición, con el gato usando el rascador en cuadro y el sillón intacto detrás. La prueba es el gato en uso, no la palabra.',
+        cta:'Ver rascadores Sántaro — envío gratis.' }
+    ]},
+    { n:2, titulo:'Los rascadores son horribles y no los quiero en mi living', corto:'Los rascadores son feos', creativos: [
+      { n:1, f:'imagen', a:'comp', prod:'Rascador peluche', dur:'estática 4:5, foto de ambiente',
+        stage:'Split. Izquierda: torre de rascador multicolor con soguitas colgando. Derecha: rascador multi-nivel de peluche beige junto a una biblioteca de madera, con el gato arriba.',
+        hook:'Un mueble para tu gato que tu casa puede lucir.',
+        msg:'Peluche beige suave o alfombra marrón ultra resistente, dos acabados neutros pensados para living. Estructura maciza que no se tambalea.',
+        cta:'Elegí tu textura: peluche o alfombra.' },
+      { n:2, f:'ugc', a:'test', prod:'Rascador Multi-Nivel', dur:'20s, casero',
+        nota:'Requiere cliente real.',
+        hook:'Es el primer accesorio de gato que no tuve que esconder.',
+        msg:'Hablado desde la deco, no desde la funcionalidad. El rascador quedó en el living, combina con la madera y el gato lo usa todos los días. Doble ganancia: mueble y territorio.',
+        cta:'Ver Rascador Multi-Nivel.' },
+      { n:3, f:'video', a:'urg', prod:'Rascador Multi-Nivel', dur:'12s',
+        nota:'Validar vigencia de la promoción.',
+        hook:'El rascador que no arruina tu living está 20% OFF.',
+        msg:'Oferta real vigente sobre los dos modelos, con envío gratis a todo el país sin mínimo y 3 cuotas sin interés. Cierre con el gato subiendo al nivel superior.',
+        cta:'Aprovechá el 20% OFF.' }
+    ]}
+  ]
+},
+{
+  id: 'P5', nombre: 'Meli, la del perro chico friolento', tag: 'Su perro tiembla y se mete en su cama',
+  perfil: '28 a 50 años. Caniche, salchicha, chihuahua, pinscher o mestizo chico. El perro duerme en su cama, abajo de las mantas, y tiembla apenas baja la temperatura. Lo trata como un hijo y le habla en diminutivos. Le encantan las cosas suaves, mullidas y tiernas. Compra por impulso emocional cuando ve el producto en una foto linda con un perro adentro.',
+  dolor: 'Su perro pasa frío, es ansioso y no logra que duerma tranquilo en un lugar propio.',
+  desea: 'Que su perro tenga un refugio abrigado y contenedor donde se sienta seguro, aunque ella no esté al lado.',
+  tono: 'Tierno, cálido, sensorial. Acá sí van los sustantivos abstractos de la marca —contención, calidez, refugio— emparejados con momentos concretos. Es la persona más emocional del set y la que mejor responde a video con audio ASMR de tela.',
+  dolores: [
+    { n:1, titulo:'Tiembla de frío y termina abajo de mis mantas', corto:'Tiembla de frío y se mete en las mantas', creativos: [
+      { n:1, f:'video', a:'ps', tanda1:true, prod:'Nido Nórdico 60cm', dur:'15s, ASMR de textura',
+        stage:'Mano hundiéndose lento en el pelo largo del Nido Nórdico, sonido de la tela.',
+        hook:'Si duerme abajo de tus mantas, es porque su cama no abriga.',
+        msg:'El Nido Nórdico es puff de pelo largo con borde alto: retiene el calor del cuerpo y arma una cueva tibia. Los perros chicos pierden calor mucho más rápido que los grandes y por eso buscan meterse abajo de todo.',
+        cta:'Ver Nido Nórdico 60cm — gris y beige.' },
+      { n:2, f:'carrusel', a:'edu', prod:'Nido Nórdico 60cm', dur:'4 placas',
+        hook:'Por qué tu perro chico busca meterse abajo de las mantas.',
+        msg:'Placa 2, más superficie corporal en relación al peso, o sea que pierde calor más rápido. Placa 3, el instinto de madriguera: busca un espacio cerrado y contenido, no una superficie abierta. Placa 4, qué necesita una cama para responder a las dos cosas: borde alto, pelo largo y talle justo, ni grande ni chico.',
+        cta:'Elegí el talle en la guía oficial.' },
+      { n:3, f:'imagen', a:'urg', prod:'Nido Nórdico 60cm', dur:'estática, foto invernal cálida',
+        nota:'Estacional. Reservar para el ciclo de otoño-invierno.',
+        stage:'Perro chico hecho un rollito dentro del Nido Nórdico beige, luz de ventana, manta al costado.',
+        hook:'Antes de que llegue el frío de verdad.',
+        msg:'El Nido Nórdico 60cm en gris y beige, con descuento vigente, envío gratis a todo el país y entrega el mismo día en AMBA. Que el invierno lo agarre con su lugar armado.',
+        cta:'Comprá ahora con envío gratis.' }
+    ]},
+    { n:2, titulo:'Es ansioso: no se queda solo y duerme mal', corto:'Es ansioso y duerme mal', creativos: [
+      { n:1, f:'ugc', a:'test', prod:'Colección Moisés', dur:'25s, casero',
+        nota:'Requiere cliente real. Nada de promesas de cura de ansiedad.',
+        hook:'Lloraba toda la noche hasta que le armé su propio rincón.',
+        msg:'Relato de la rutina que cambió: la cama en un lugar fijo, cerca pero no encima, y el perro que empezó a irse solo a dormir. Se cuenta la experiencia concreta de una casa.',
+        cta:'Ver la Colección Moisés.' },
+      { n:2, f:'video', a:'edu', prod:'Alaska 57×57', dur:'18s, voz en off suave',
+        hook:'Los perros ansiosos no buscan espacio. Buscan bordes.',
+        msg:'El contacto del lomo y la cabeza contra una pared blanda le da al perro una referencia física que baja la alerta. Por eso las camas tipo moisés con borde alto funcionan mejor que las planas en perros que se sobresaltan. Confort y sensación de refugio, no tratamiento clínico.',
+        cta:'Ver Cama Moisés Alaska 57×57.' },
+      { n:3, f:'imagen', a:'comp', prod:'Moisés Alaska', dur:'estática, split simple',
+        stage:'Dos fotos del mismo perro. Izquierda: acostado en una manta plana, con las orejas alerta y la cabeza levantada. Derecha: acurrucado contra el borde del moisés, dormido profundo.',
+        hook:'Plana: vigila. Con borde: duerme.',
+        msg:'La diferencia entre descansar y montar guardia es el borde. Contención en 360°, apoyo para la cabeza y funda lavable.',
+        cta:'Ver camas con borde alto.' }
+    ]}
+  ]
+}
+];
+
+/* ---------- helpers ---------- */
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const adId = (p, d, c) => `${p.id}-D${d.n}-C${c.n}_${c.f}_${{ps:'problema-solucion',edu:'educativo',test:'testimonial',comp:'comparacion',urg:'urgencia'}[c.a]}`;
+
+const ROWS = [];
+PERSONAS.forEach(p => p.dolores.forEach(d => d.creativos.forEach(c => {
+  ROWS.push({ id: adId(p, d, c), persona: p, dolor: d, c });
+})));
+
+/* ---------- nav ---------- */
+document.getElementById('topnav').innerHTML =
+  PERSONAS.map(p => `<a href="#${p.id}">${p.id} · ${esc(p.nombre.split(',')[0])}</a>`).join('') +
+  '<a href="#resumen">Resumen</a><a href="#produccion">Producción</a>';
+
+/* ---------- personas ---------- */
+document.getElementById('personas').innerHTML = PERSONAS.map(p => `
+  <section class="persona" id="${p.id}">
+    <div class="persona-head">
+      <div class="persona-id">${p.id}</div>
+      <div class="persona-title">
+        <h2>${esc(p.nombre)}</h2>
+        <div class="tag">${esc(p.tag)}</div>
+      </div>
+      <div class="persona-anchor">${p.dolores.length} dolores<br>${p.dolores.reduce((n,d)=>n+d.creativos.length,0)} creativos</div>
+    </div>
+    <dl class="ficha">
+      <div><dt>Perfil</dt><dd>${esc(p.perfil)}</dd></div>
+      <div><dt>Dolor</dt><dd>${esc(p.dolor)}</dd></div>
+      <div><dt>Lo que desea</dt><dd>${esc(p.desea)}</dd></div>
+      <div><dt>Tono para esta persona</dt><dd>${esc(p.tono)}</dd></div>
+    </dl>
+    ${p.dolores.map(d => `
+      <div class="dolor">
+        <div class="dolor-head">
+          <span class="dolor-id">D${d.n}</span>
+          <h3>${esc(d.titulo)}</h3>
+        </div>
+        <div class="cards">
+          ${d.creativos.map(c => `
+            <article class="card">
+              <div class="card-top">
+                <span class="cid">C${c.n}</span>
+                <span class="fmark">${FORMATOS[c.f].mark}</span>
+                ${c.tanda1 ? '<span class="flag">Tanda 1</span>' : ''}
+                <span class="angle" style="color:${ANGULOS[c.a].color}"><span class="dot" style="background:${ANGULOS[c.a].color}"></span>${esc(ANGULOS[c.a].label)}</span>
+              </div>
+              <div class="card-body">
+                <div>
+                  <div class="slot-label">Hook · primeros 3 segundos</div>
+                  ${c.stage ? `<em class="stage">${esc(c.stage)}</em>` : ''}
+                  <div class="hook">“${esc(c.hook)}”</div>
+                </div>
+                <div>
+                  <div class="slot-label">Mensaje central</div>
+                  <div class="msg">${esc(c.msg)}</div>
+                </div>
+                <div>
+                  <div class="slot-label">Formato</div>
+                  <div class="msg">${esc(FORMATOS[c.f].label)} · ${esc(c.dur)} · ${esc(c.prod)}</div>
+                </div>
+                ${c.nota ? `<div class="note">${esc(c.nota)}</div>` : ''}
+              </div>
+              <div class="cta">${esc(c.cta)}</div>
+            </article>`).join('')}
+        </div>
+      </div>`).join('')}
+  </section>`).join('');
+
+/* ---------- filtros + tabla ---------- */
+const state = { persona: null, formato: null, angulo: null };
+const filtersEl = document.getElementById('filters');
+filtersEl.innerHTML = `
+  <div class="fgroup"><span>Persona</span>${PERSONAS.map(p => `<button class="chip" data-k="persona" data-v="${p.id}" aria-pressed="false">${p.id}</button>`).join('')}</div>
+  <div class="fgroup"><span>Formato</span>${Object.entries(FORMATOS).map(([k,v]) => `<button class="chip" data-k="formato" data-v="${k}" aria-pressed="false">${v.label}</button>`).join('')}</div>
+  <div class="fgroup"><span>Ángulo</span>${Object.entries(ANGULOS).map(([k,v]) => `<button class="chip" data-k="angulo" data-v="${k}" aria-pressed="false">${v.label}</button>`).join('')}</div>
+  <span class="count" id="count"></span>`;
+
+function render() {
+  const rows = ROWS.filter(r =>
+    (!state.persona || r.persona.id === state.persona) &&
+    (!state.formato || r.c.f === state.formato) &&
+    (!state.angulo  || r.c.a === state.angulo));
+  document.getElementById('summary-body').innerHTML = rows.map(r => `
+    <tr>
+      <td class="mono">${esc(r.id)}</td>
+      <td class="k">${esc(r.persona.nombre)}</td>
+      <td>${esc(r.dolor.corto)}</td>
+      <td>${esc(FORMATOS[r.c.f].label)}</td>
+      <td><span class="angle" style="color:${ANGULOS[r.c.a].color}"><span class="dot" style="background:${ANGULOS[r.c.a].color}"></span>${esc(ANGULOS[r.c.a].label)}</span></td>
+      <td>${esc(r.c.prod)}</td>
+    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;padding:34px">Ningún creativo con esa combinación.</td></tr>';
+  document.getElementById('count').textContent = `${rows.length} de ${ROWS.length} creativos`;
+}
+
+filtersEl.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  const { k, v } = b.dataset;
+  state[k] = state[k] === v ? null : v;
+  filtersEl.querySelectorAll(`.chip[data-k="${k}"]`).forEach(x =>
+    x.setAttribute('aria-pressed', String(x.dataset.v === state[k])));
+  render();
+});
+render();
+
+/* ---------- barras ---------- */
+function bars(target, dict, key) {
+  const counts = Object.keys(dict).map(k => ({ k, n: ROWS.filter(r => r.c[key] === k).length }))
+                        .sort((a,b) => b.n - a.n);
+  const max = Math.max(...counts.map(c => c.n));
+  document.getElementById(target).innerHTML = counts.map(c => `
+    <div class="bar-row">
+      <span>${dict[c.k].label}</span>
+      <span class="bar-track"><span class="bar-fill" style="width:${(c.n/max*100).toFixed(1)}%;${key==='a'?`background:${dict[c.k].color}`:''}"></span></span>
+      <b>${c.n}</b>
+    </div>`).join('');
+}
+bars('bars-formato', FORMATOS, 'f');
+bars('bars-angulo', ANGULOS, 'a');
+
+/* ---------- tanda 1 ---------- */
+document.getElementById('tanda1-ids').innerHTML =
+  ROWS.filter(r => r.c.tanda1).map(r => `<code>${esc(r.id.split('_')[0])}</code>`).join('');
+
+/* ---------- checklist ---------- */
+const CHECKS = [
+  'El hook se entiende en 3 segundos sin audio.',
+  'La persona objetivo es identificable en el primer cuadro: tamaño de perro, edad, tipo de casa.',
+  'Un solo dolor, una sola promesa.',
+  'Nombre del anuncio con la nomenclatura P#-D#-C#_formato_angulo.',
+  'Sin claims de salud ni datos sin verificar.',
+  'Testimonial o UGC con cliente real y autorización de uso de imagen.',
+  'La promoción mencionada está vigente en la tienda hoy.',
+  'Paleta de marca: crema, marrón cálido, acentos dorados. Luz de ventana. Una escena por pieza.'
+];
+document.getElementById('checklist').innerHTML = CHECKS.map((t,i) =>
+  `<li><label><input type="checkbox" id="chk${i}"><span>${esc(t)}</span></label></li>`).join('');
+</script>
