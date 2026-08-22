@@ -6,7 +6,7 @@ Landings de producto para la tienda **SÁNTARO** (Tiendanube).
 
 ```
 Landing-Tiendanube/
-├── landings/        ← LAS 11 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
+├── landings/        ← LAS 10 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
 ├── correcciones/    ← Bloques de reseñas sueltos (por si se quiere editar solo esa parte)
 ├── assets/          ← contador-santaro.gif (el temporizador animado)
 └── README.md
@@ -38,8 +38,7 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 | `60cm-puff-beige.html` | Cama puff redonda 60 cm, pelo beige | $80.000 → $50.000 |
 | `100x100-nordica-beige.html` | Puff nórdica XL 100x100x20, beige | $200.000 → $100.000 |
 | `100x100-nordica-gris.html` | Puff nórdica XL 100x100x20, gris | $200.000 → $100.000 |
-| `80x50x15-colchoneta-negra.html` | Colchoneta 80x50x15, microfibra negra | $150.000 → $65.000 |
-| `80x50x15-colchoneta-beige.html` | Colchoneta 80x50x15, microfibra beige | $150.000 → $65.000 |
+| `80x50x15-colchoneta.html` | Colchoneta 80x50x15 (unificada, color a elección: negra / beige; perros medianos hasta 65 cm) | $150.000 → $67.500 (transf. $60.750) |
 | `100x90x15-colchoneta.html` | Colchoneta XL 100x90x15 (unificada, color a elección: negra / beige; perros grandes hasta 85 cm o dos juntos) | $200.000 → $84.000 (transf. $75.600) |
 | `rascador-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
 | `rascador-alfombra-marron.html` | Rascador multi-nivel alfombra marrón | $200.000 → $160.000 |
