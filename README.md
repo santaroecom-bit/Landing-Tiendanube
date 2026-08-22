@@ -6,7 +6,7 @@ Landings de producto para la tienda **SÁNTARO** (Tiendanube).
 
 ```
 Landing-Tiendanube/
-├── landings/        ← LAS 13 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
+├── landings/        ← LAS 12 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
 ├── correcciones/    ← Bloques de reseñas sueltos (por si se quiere editar solo esa parte)
 ├── assets/          ← contador-santaro.gif (el temporizador animado)
 └── README.md
@@ -32,8 +32,7 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 
 | Archivo | Producto | Precio |
 |---|---|---|
-| `57x57-alaska-gris.html` | Moisés Alaska 57x57x25, interior gris oscuro | $100.000 → $40.000 |
-| `57x57-alaska-beige.html` | Moisés Alaska 57x57x25, interior beige | $100.000 → $40.000 |
+| `57x57-shelter.html` | Cama Moisés Shelter 57x57x25 (unificada, color a elección: gris oscuro / beige) | $100.000 → $40.000 (transf. $36.000) |
 | `80x60-shelter.html` | Cama Moisés Shelter L 80x60x25 (unificada, color a elección: gris oscuro / beige) | $130.000 → $70.000 (transf. $63.000) |
 | `60cm-puff-gris.html` | Cama puff redonda 60 cm, pelo gris | $80.000 → $50.000 |
 | `60cm-puff-beige.html` | Cama puff redonda 60 cm, pelo beige | $80.000 → $50.000 |
