@@ -40,7 +40,7 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 | `100x100-nordica-gris.html` | Puff nórdica XL 100x100x20, gris | $200.000 → $100.000 |
 | `80x50x15-colchoneta-negra.html` | Colchoneta 80x50x15, microfibra negra | $150.000 → $65.000 |
 | `80x50x15-colchoneta-beige.html` | Colchoneta 80x50x15, microfibra beige | $150.000 → $65.000 |
-| `100x90x15-colchoneta.html` | Colchoneta XL 100x90x15 (unificada, color a elección: negra / beige; perros grandes hasta 85 cm o dos juntos) | $200.000 → $84.000 |
+| `100x90x15-colchoneta.html` | Colchoneta XL 100x90x15 (unificada, color a elección: negra / beige; perros grandes hasta 85 cm o dos juntos) | $200.000 → $84.000 (transf. $75.600) |
 | `rascador-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
 | `rascador-alfombra-marron.html` | Rascador multi-nivel alfombra marrón | $200.000 → $160.000 |
 | `guia-de-talles.html` | Guía de talles (no es producto: página de referencia de medidas) | — |
