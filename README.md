@@ -6,7 +6,7 @@ Landings de producto para la tienda **SÁNTARO** (Tiendanube).
 
 ```
 Landing-Tiendanube/
-├── landings/        ← LAS 9 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
+├── landings/        ← LAS 8 LANDINGS FINALES (esto es lo que se pega en Tiendanube)
 ├── correcciones/    ← Bloques de reseñas sueltos (por si se quiere editar solo esa parte)
 ├── assets/          ← contador-santaro.gif (el temporizador animado)
 └── README.md
@@ -35,8 +35,7 @@ Los archivos están nombrados por **medidas** para identificarlos rápido.
 | `57x57-shelter.html` | Cama Moisés Shelter 57x57x25 (unificada, color a elección: gris oscuro / beige) | $100.000 → $40.000 (transf. $36.000) |
 | `80x60-shelter.html` | Cama Moisés Shelter L 80x60x25 (unificada, color a elección: gris oscuro / beige) | $130.000 → $70.000 (transf. $63.000) |
 | `60cm-puff.html` | Cama puff redonda 60 cm (unificada, color a elección: beige / gris; gatos, toy/mini, cachorros hasta 45 cm) | $80.000 → $54.000 (transf. $48.600) |
-| `100x100-nordica-beige.html` | Puff nórdica XL 100x100x20, beige | $200.000 → $100.000 |
-| `100x100-nordica-gris.html` | Puff nórdica XL 100x100x20, gris | $200.000 → $100.000 |
+| `100cm-puff.html` | Cama Puff 100 (unificada, color a elección: beige / gris; perros medianos y grandes hasta 85 cm) | $200.000 → $100.000 (transf. $90.000) |
 | `80x50x15-colchoneta.html` | Colchoneta 80x50x15 (unificada, color a elección: negra / beige; perros medianos hasta 65 cm) | $150.000 → $67.500 (transf. $60.750) |
 | `100x90x15-colchoneta.html` | Colchoneta XL 100x90x15 (unificada, color a elección: negra / beige; perros grandes hasta 85 cm o dos juntos) | $200.000 → $84.000 (transf. $75.600) |
 | `rascador-peluche-beige.html` | Rascador multi-nivel peluche beige | $200.000 → $160.000 |
